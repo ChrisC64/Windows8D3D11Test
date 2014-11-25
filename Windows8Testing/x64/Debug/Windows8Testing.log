@@ -1,0 +1,722 @@
+﻿Build started 11/22/2014 2:51:14 PM.
+     1>Project "D:\Visual Studios 2013\Projects\Windows8Testing\Windows8Testing\Windows8Testing.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         D:\Visual Studio 2013\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Direct3DApp.cpp
+         Direct3DApp.cpp
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(12): warning C4005: 'DXGI_STATUS_OCCLUDED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50092) : see previous definition of 'DXGI_STATUS_OCCLUDED'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(13): warning C4005: 'DXGI_STATUS_CLIPPED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50101) : see previous definition of 'DXGI_STATUS_CLIPPED'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(14): warning C4005: 'DXGI_STATUS_NO_REDIRECTION' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50110) : see previous definition of 'DXGI_STATUS_NO_REDIRECTION'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(15): warning C4005: 'DXGI_STATUS_NO_DESKTOP_ACCESS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50119) : see previous definition of 'DXGI_STATUS_NO_DESKTOP_ACCESS'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(16): warning C4005: 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50128) : see previous definition of 'DXGI_STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(17): warning C4005: 'DXGI_STATUS_MODE_CHANGED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50137) : see previous definition of 'DXGI_STATUS_MODE_CHANGED'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(18): warning C4005: 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50146) : see previous definition of 'DXGI_STATUS_MODE_CHANGE_IN_PROGRESS'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(21): warning C4005: 'DXGI_ERROR_INVALID_CALL' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50161) : see previous definition of 'DXGI_ERROR_INVALID_CALL'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(22): warning C4005: 'DXGI_ERROR_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50170) : see previous definition of 'DXGI_ERROR_NOT_FOUND'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(23): warning C4005: 'DXGI_ERROR_MORE_DATA' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50179) : see previous definition of 'DXGI_ERROR_MORE_DATA'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(24): warning C4005: 'DXGI_ERROR_UNSUPPORTED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50188) : see previous definition of 'DXGI_ERROR_UNSUPPORTED'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(25): warning C4005: 'DXGI_ERROR_DEVICE_REMOVED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50197) : see previous definition of 'DXGI_ERROR_DEVICE_REMOVED'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(26): warning C4005: 'DXGI_ERROR_DEVICE_HUNG' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50206) : see previous definition of 'DXGI_ERROR_DEVICE_HUNG'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(27): warning C4005: 'DXGI_ERROR_DEVICE_RESET' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50216) : see previous definition of 'DXGI_ERROR_DEVICE_RESET'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(28): warning C4005: 'DXGI_ERROR_WAS_STILL_DRAWING' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50225) : see previous definition of 'DXGI_ERROR_WAS_STILL_DRAWING'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(29): warning C4005: 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50235) : see previous definition of 'DXGI_ERROR_FRAME_STATISTICS_DISJOINT'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(30): warning C4005: 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50244) : see previous definition of 'DXGI_ERROR_GRAPHICS_VIDPN_SOURCE_IN_USE'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(31): warning C4005: 'DXGI_ERROR_DRIVER_INTERNAL_ERROR' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50254) : see previous definition of 'DXGI_ERROR_DRIVER_INTERNAL_ERROR'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(32): warning C4005: 'DXGI_ERROR_NONEXCLUSIVE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50263) : see previous definition of 'DXGI_ERROR_NONEXCLUSIVE'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(33): warning C4005: 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50272) : see previous definition of 'DXGI_ERROR_NOT_CURRENTLY_AVAILABLE'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(34): warning C4005: 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50282) : see previous definition of 'DXGI_ERROR_REMOTE_CLIENT_DISCONNECTED'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\dxgitype.h(35): warning C4005: 'DXGI_ERROR_REMOTE_OUTOFMEMORY' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50291) : see previous definition of 'DXGI_ERROR_REMOTE_OUTOFMEMORY'
+     1>D:\Program Files(x86)\Microsoft SDK (June 2010)\Include\d3d11.h(917): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50469) : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+     1>D:\Program Files(x86)\Microsoft SDK (June 2010)\Include\d3d11.h(918): warning C4005: 'D3D11_ERROR_FILE_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50478) : see previous definition of 'D3D11_ERROR_FILE_NOT_FOUND'
+     1>D:\Program Files(x86)\Microsoft SDK (June 2010)\Include\d3d11.h(919): warning C4005: 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50488) : see previous definition of 'D3D11_ERROR_TOO_MANY_UNIQUE_VIEW_OBJECTS'
+     1>D:\Program Files(x86)\Microsoft SDK (June 2010)\Include\d3d11.h(920): warning C4005: 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50497) : see previous definition of 'D3D11_ERROR_DEFERRED_CONTEXT_MAP_WITHOUT_INITIAL_DISCARD'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\d3d10.h(608): warning C4005: 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50445) : see previous definition of 'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'
+     1>d:\program files(x86)\microsoft sdk (june 2010)\include\d3d10.h(609): warning C4005: 'D3D10_ERROR_FILE_NOT_FOUND' : macro redefinition
+                 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\winerror.h(50454) : see previous definition of 'D3D10_ERROR_FILE_NOT_FOUND'
+     1>Direct3DApp.cpp(187): warning C4244: '=' : conversion from 'int' to 'FLOAT', possible loss of data
+     1>Direct3DApp.cpp(188): warning C4244: '=' : conversion from 'int' to 'FLOAT', possible loss of data
+       Link:
+         D:\Visual Studio 2013\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Visual Studios 2013\Projects\Windows8Testing\x64\Debug\Windows8Testing.exe" /INCREMENTAL /NOLOGO d3d11.lib dxgi.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Visual Studios 2013\Projects\Windows8Testing\x64\Debug\Windows8Testing.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Visual Studios 2013\Projects\Windows8Testing\x64\Debug\Windows8Testing.lib" /MACHINE:X64 /VERBOSE x64\Debug\Direct3DApp.obj
+         x64\Debug\Direct3DRender.obj
+         x64\Debug\Timer.obj
+         x64\Debug\Vertex.obj
+         x64\Debug\WinMain.obj
+         
+         Starting pass 1
+         Processed /DEFAULTLIB:uuid.lib
+         Processed /DEFAULTLIB:msvcprtd
+         Processed /DEFAULTLIB:d3d11.lib
+         Processed /DEFAULTLIB:dxgi.lib
+         Processed /DEFAULTLIB:d3dx11.lib
+         Processed /DEFAULTLIB:dxguid.lib
+         Processed /DEFAULTLIB:MSVCRTD
+         Processed /DEFAULTLIB:OLDNAMES
+         
+         Searching libraries
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\d3d11.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\dxgi.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\kernel32.lib:
+               Found __imp_QueryPerformanceCounter
+                 Referenced in Timer.obj
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_QueryPerformanceFrequency
+                 Referenced in Timer.obj
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __IMPORT_DESCRIPTOR_KERNEL32
+                 Referenced in kernel32.lib(KERNEL32.dll)
+                 Referenced in kernel32.lib(KERNEL32.dll)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __NULL_IMPORT_DESCRIPTOR
+                 Referenced in kernel32.lib(KERNEL32.dll)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found KERNEL32_NULL_THUNK_DATA
+                 Referenced in kernel32.lib(KERNEL32.dll)
+                 Loaded kernel32.lib(KERNEL32.dll)
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\user32.lib:
+               Found __imp_SetWindowTextW
+                 Referenced in Direct3DApp.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_MessageBoxW
+                 Referenced in Direct3DApp.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_TranslateMessage
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_DispatchMessageW
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_PeekMessageW
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_DefWindowProcW
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_PostQuitMessage
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_UnregisterClassW
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_RegisterClassExW
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_CreateWindowExW
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_ShowWindow
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_UpdateWindow
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_InvalidateRect
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __imp_LoadCursorW
+                 Referenced in WinMain.obj
+                 Loaded user32.lib(USER32.dll)
+               Found __IMPORT_DESCRIPTOR_USER32
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Referenced in user32.lib(USER32.dll)
+                 Loaded user32.lib(USER32.dll)
+               Found USER32_NULL_THUNK_DATA
+                 Referenced in user32.lib(USER32.dll)
+                 Loaded user32.lib(USER32.dll)
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\gdi32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\winspool.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\comdlg32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\advapi32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\shell32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\ole32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\oleaut32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\uuid.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\odbc32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\odbccp32.lib:
+             Searching D:\Visual Studio 2013\VC\lib\amd64\msvcprtd.lib:
+               Found "__declspec(dllimport) void __cdecl std::_Debug_message(wchar_t const *,wchar_t const *,unsigned int)" (__imp_?_Debug_message@std@@YAXPEB_W0I@Z)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found "__declspec(dllimport) public: __cdecl std::_Container_base12::_Container_base12(void)" (__imp_??0_Container_base12@std@@QEAA@XZ)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found "__declspec(dllimport) public: __cdecl std::_Container_base12::~_Container_base12(void)" (__imp_??1_Container_base12@std@@QEAA@XZ)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found "__declspec(dllimport) public: void __cdecl std::_Container_base12::_Orphan_all(void)" (__imp_?_Orphan_all@_Container_base12@std@@QEAAXXZ)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found "__declspec(dllimport) void __cdecl std::_Xbad_alloc(void)" (__imp_?_Xbad_alloc@std@@YAXXZ)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found "__declspec(dllimport) void __cdecl std::_Xlength_error(char const *)" (__imp_?_Xlength_error@std@@YAXPEBD@Z)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found "__declspec(dllimport) void __cdecl std::_Xout_of_range(char const *)" (__imp_?_Xout_of_range@std@@YAXPEBD@Z)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found "__declspec(dllimport) char const * __cdecl std::_Syserror_map(int)" (__imp_?_Syserror_map@std@@YAPEBDH@Z)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found "__declspec(dllimport) char const * __cdecl std::_Winerror_map(int)" (__imp_?_Winerror_map@std@@YAPEBDH@Z)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found __IMPORT_DESCRIPTOR_MSVCP120D
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+               Found MSVCP120D_NULL_THUNK_DATA
+                 Referenced in msvcprtd.lib(MSVCP120D.dll)
+                 Loaded msvcprtd.lib(MSVCP120D.dll)
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\d3dx11.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\dxguid.lib:
+             Searching D:\Visual Studio 2013\VC\lib\amd64\MSVCRTD.lib:
+               Found _purecall
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found "void * __cdecl operator new(unsigned __int64)" (??2@YAPEAX_K@Z)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found "void __cdecl operator delete(void *)" (??3@YAXPEAX@Z)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found atexit
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(atonexit.obj)
+               Found memcpy
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found memset
+                 Referenced in Direct3DApp.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found strlen
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp_memmove
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp_printf_s
+                 Referenced in Direct3DApp.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__hypot
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__wassert
+                 Referenced in Direct3DApp.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _CxxThrowException
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _RTC_CheckStackVars
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(stack.obj)
+               Found _RTC_InitBase
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(init.obj)
+               Found __CxxFrameHandler3
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __GSHandlerCheck
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(gshandler.obj)
+               Found __GSHandlerCheck_EH
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(gshandlereh.obj)
+               Found __security_check_cookie
+                 Referenced in MSVCRTD.lib(gshandler.obj)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(amdsecgs.obj)
+               Found "const type_info::`vftable'" (??_7type_info@@6B@)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(ti_inst.obj)
+               Found __security_cookie
+                 Referenced in MSVCRTD.lib(amdsecgs.obj)
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(gs_cookie.obj)
+               Found _fltused
+                 Referenced in Direct3DApp.obj
+                 Referenced in Timer.obj
+                 Referenced in Vertex.obj
+                 Referenced in WinMain.obj
+                 Loaded MSVCRTD.lib(dllsupp.obj)
+               Found WinMainCRTStartup
+                 Loaded MSVCRTD.lib(crtexew.obj)
+               Found __IMPORT_DESCRIPTOR_MSVCR120D
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _lock
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _unlock
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__CrtDbgReportW
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__calloc_dbg
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __dllonexit
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __C_specific_handler
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__onexit
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found "void __cdecl _RTC_StackFailure(void *,char const *)" (?_RTC_StackFailure@@YAXPEAXPEBD@Z)
+                 Referenced in MSVCRTD.lib(stack.obj)
+                 Loaded MSVCRTD.lib(error.obj)
+               Found _RTC_SetErrorFuncW
+                 Referenced in MSVCRTD.lib(init.obj)
+                 Loaded MSVCRTD.lib(userapi.obj)
+               Found _CRT_RTC_INITW
+                 Referenced in MSVCRTD.lib(init.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __report_gsfailure
+                 Referenced in MSVCRTD.lib(amdsecgs.obj)
+                 Loaded MSVCRTD.lib(gs_report.obj)
+               Found "void __cdecl `eh vector destructor iterator'(void *,unsigned __int64,int,void (__cdecl*)(void *))" (??_M@YAXPEAX_KHP6AX0@Z@Z)
+                 Referenced in MSVCRTD.lib(ti_inst.obj)
+                 Loaded MSVCRTD.lib(ehvecdtr.obj)
+               Found "public: virtual __cdecl type_info::~type_info(void)" (??1type_info@@UEAA@XZ)
+                 Referenced in MSVCRTD.lib(ti_inst.obj)
+                 Loaded MSVCRTD.lib(typeinfo_dtor_64.obj)
+               Found __CxxSetUnhandledExceptionFilter
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(unhandld.obj)
+               Found _XcptFilter
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp___crtGetShowWindowMode
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _amsg_exit
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _setargv
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(dllargv.obj)
+               Found __imp___getmainargs
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp___set_app_type
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__CrtSetCheckCount
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _IsNonwritableInCurrentImage
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(pesect.obj)
+               Found __imp_exit
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__exit
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__cexit
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __security_init_cookie
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(gs_support.obj)
+               Found _matherr
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(merr.obj)
+               Found __imp__ismbblead
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _RTC_Initialize
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(initsect.obj)
+               Found __imp__configthreadlocale
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp___setusermatherr
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _initterm_e
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _initterm
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __globallocalestatus
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(xthdloc.obj)
+               Found _commode
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(xncommod.obj)
+               Found _dowildcard
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(wildcard.obj)
+               Found _newmode
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(_newmode.obj)
+               Found __imp__acmdln
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __native_startup_state
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(natstart.obj)
+               Found _fmode
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(xtxtmode.obj)
+               Found __imp__fmode
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __imp__commode
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __xi_a
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded MSVCRTD.lib(cinitexe.obj)
+         Processed /DEFAULTLIB:kernel32.lib
+          Processed /DISALLOWLIB:libcmt.lib
+          Processed /DISALLOWLIB:libcmtd.lib
+          Processed /DISALLOWLIB:msvcrt.lib
+               Found MSVCR120D_NULL_THUNK_DATA
+                 Referenced in MSVCRTD.lib(MSVCR120D.dll)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found "int __cdecl _RTC_GetSrcLine(unsigned char *,wchar_t *,unsigned long,int *,wchar_t *,unsigned long)" (?_RTC_GetSrcLine@@YAHPEAEPEA_WKPEAH1K@Z)
+                 Referenced in MSVCRTD.lib(error.obj)
+                 Loaded MSVCRTD.lib(pdblkup.obj)
+               Found __crt_debugger_hook
+                 Referenced in MSVCRTD.lib(gs_report.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __crtUnhandledException
+                 Referenced in MSVCRTD.lib(gs_report.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __crtTerminateProcess
+                 Referenced in MSVCRTD.lib(gs_report.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __crtCaptureCurrentContext
+                 Referenced in MSVCRTD.lib(gs_report.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __crtCapturePreviousContext
+                 Referenced in MSVCRTD.lib(gs_report.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found "void __cdecl terminate(void)" (?terminate@@YAXXZ)
+                 Referenced in MSVCRTD.lib(ehvecdtr.obj)
+                 Referenced in MSVCRTD.lib(unhandld.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found "public: void __cdecl type_info::_type_info_dtor_internal_method(void)" (?_type_info_dtor_internal_method@type_info@@QEAAXXZ)
+                 Referenced in MSVCRTD.lib(typeinfo_dtor_64.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found __crtSetUnhandledExceptionFilter
+                 Referenced in MSVCRTD.lib(unhandld.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found wcscpy_s
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _wmakepath_s
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+               Found _wsplitpath_s
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded MSVCRTD.lib(MSVCR120D.dll)
+             Searching D:\Visual Studio 2013\VC\lib\amd64\OLDNAMES.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\d3d11.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\dxgi.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\kernel32.lib:
+               Found __imp_EncodePointer
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Referenced in MSVCRTD.lib(crtexew.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_DecodePointer
+                 Referenced in MSVCRTD.lib(atonexit.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_IsDebuggerPresent
+                 Referenced in MSVCRTD.lib(error.obj)
+                 Referenced in MSVCRTD.lib(gs_report.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_RaiseException
+                 Referenced in MSVCRTD.lib(error.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_GetLastError
+                 Referenced in MSVCRTD.lib(error.obj)
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_GetProcAddress
+                 Referenced in MSVCRTD.lib(error.obj)
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_LoadLibraryExW
+                 Referenced in MSVCRTD.lib(error.obj)
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_MultiByteToWideChar
+                 Referenced in MSVCRTD.lib(error.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_WideCharToMultiByte
+                 Referenced in MSVCRTD.lib(error.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found IsProcessorFeaturePresent
+                 Referenced in MSVCRTD.lib(gs_report.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_GetCurrentProcessId
+                 Referenced in MSVCRTD.lib(gs_support.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_GetCurrentThreadId
+                 Referenced in MSVCRTD.lib(gs_support.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_GetSystemTimeAsFileTime
+                 Referenced in MSVCRTD.lib(gs_support.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_HeapAlloc
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_HeapFree
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_GetProcessHeap
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_VirtualQuery
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_FreeLibrary
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_GetModuleFileNameW
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+               Found __imp_GetModuleHandleW
+                 Referenced in MSVCRTD.lib(pdblkup.obj)
+                 Loaded kernel32.lib(KERNEL32.dll)
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\user32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\gdi32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\winspool.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\comdlg32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\advapi32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\shell32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\ole32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\oleaut32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\uuid.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\odbc32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\odbccp32.lib:
+             Searching D:\Visual Studio 2013\VC\lib\amd64\msvcprtd.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\d3dx11.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\dxguid.lib:
+         
+         Finished searching libraries
+         
+         Finished pass 1
+         
+         
+         Searching libraries
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\d3d11.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\dxgi.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\kernel32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\user32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\gdi32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\winspool.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\comdlg32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\advapi32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\shell32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\ole32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\oleaut32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\uuid.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\odbc32.lib:
+             Searching C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\odbccp32.lib:
+             Searching D:\Visual Studio 2013\VC\lib\amd64\msvcprtd.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\d3dx11.lib:
+             Searching D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\dxguid.lib:
+             Searching D:\Visual Studio 2013\VC\lib\amd64\MSVCRTD.lib:
+               Found _load_config_used
+                 Loaded MSVCRTD.lib(loadcfg.obj)
+             Searching D:\Visual Studio 2013\VC\lib\amd64\OLDNAMES.lib:
+         
+         Finished searching libraries
+         
+         Invoking rc.exe:
+          /v
+          /x
+          /fo
+          "C:\Users\CHRIST~1\AppData\Local\Temp\lnk{43112BEC-4C54-4631-88E0-D09D72FEB9E1}.tmp"
+          "C:\Users\CHRIST~1\AppData\Local\Temp\lnk{5031ED8F-D4D8-4220-91B5-46FB9766A830}.tmp"
+         Microsoft (R) Windows (R) Resource Compiler Version 6.3.9600.17298
+         
+         Copyright (C) Microsoft Corporation.  All rights reserved.
+         
+         
+         Creating C:\Users\CHRIST~1\AppData\Local\Temp\lnk{43112BEC-4C54-4631-88E0-D09D72FEB9E1}.tmp
+         
+         Using codepage 1252 as default
+         
+         C:\Users\CHRIST~1\AppData\Local\Temp\lnk{5031ED8F-D4D8-4220-91B5-46FB9766A830}.tmp.
+         Writing 24:1,	lang:0x409,	size 381
+         
+         Invoking cvtres.exe:
+          /machine:amd64
+          /verbose
+          /out:"C:\Users\CHRIST~1\AppData\Local\Temp\lnk{7B347B9B-51E4-4E24-BE0D-EBE0CEF0F28C}.tmp"
+          /readonly
+          "C:\Users\CHRIST~1\AppData\Local\Temp\lnk{43112BEC-4C54-4631-88E0-D09D72FEB9E1}.tmp"
+         Microsoft (R) Windows Resource To Object Converter Version 12.00.21005.1
+         Copyright (C) Microsoft Corporation.  All rights reserved.
+         
+         adding resource. type:MANIFEST, name:1, language:0x0409, flags:0x30, size:381
+         
+         Unused libraries:
+           D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\d3d11.lib
+           D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\dxgi.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\gdi32.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\winspool.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\comdlg32.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\advapi32.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\shell32.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\ole32.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\oleaut32.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\uuid.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\odbc32.lib
+           C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\odbccp32.lib
+           D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\d3dx11.lib
+           D:\Program Files(x86)\Microsoft SDK (June 2010)\Lib\x86\dxguid.lib
+           D:\Visual Studio 2013\VC\lib\amd64\OLDNAMES.lib
+         
+     1>Direct3DApp.obj : error LNK2019: unresolved external symbol D3D11CreateDeviceAndSwapChain referenced in function "public: long __cdecl D3DApp::InitDevice(struct HWND__ *)" (?InitDevice@D3DApp@@QEAAJPEAUHWND__@@@Z)
+     1>D:\Visual Studios 2013\Projects\Windows8Testing\x64\Debug\Windows8Testing.exe : fatal error LNK1120: 1 unresolved externals
+     1>Done Building Project "D:\Visual Studios 2013\Projects\Windows8Testing\Windows8Testing\Windows8Testing.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:04.00
