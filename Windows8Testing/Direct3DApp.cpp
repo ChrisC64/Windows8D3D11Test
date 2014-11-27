@@ -297,7 +297,6 @@ void D3DApp::Render(float dt)
     // TODO :
     /*
     D3D11 ERROR: ID3D11DeviceContext::DrawIndexed: A Vertex Shader is always required when drawing, but none is currently bound. [ EXECUTION ERROR #341: DEVICE_DRAW_VERTEX_SHADER_NOT_SET]
-    D3D11 ERROR: ID3D11DeviceContext::DrawIndexed: The current IndexBufferFormat (0x3, R32G32B32A32_UINT) is not valid for usage as an IAIndexBuffer Format. [ EXECUTION ERROR #358: DEVICE_DRAW_INDEX_BUFFER_FORMAT_INVALID]
     D3D11 ERROR: ID3D11DeviceContext::DrawIndexed: Rasterization Unit is enabled (PixelShader is not NULL or Depth/Stencil test is enabled and RasterizedStream is not D3D11_SO_NO_RASTERIZED_STREAM) but position is not provided by the last shader before the Rasterization Unit. [ EXECUTION ERROR #362: DEVICE_DRAW_POSITION_NOT_PRESENT]
     */
     // Set Vertex Buffers
@@ -449,7 +448,7 @@ void D3DApp::SetCube()
     flags |= D3DCOMPILE_DEBUG;
 #endif
     LPCSTR profile = "vs_5_0";
-    hr = D3DCompileFromFile(L"VertexShader.hlsl", NULL, NULL, "VS", profile, flags, 0, &mpBlob, &mpErrorMsgBlob);
+    hr = D3DCompileFromFile(L"VertexShader.hlsl", NULL, NULL, "main", profile, flags, 0, &mpBlob, &mpErrorMsgBlob);
 
     if (FAILED(hr))
     {

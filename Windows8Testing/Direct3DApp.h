@@ -9,7 +9,7 @@
 #include <dxgi.h>
 #include <Xinput.h>
 #include <stdio.h>
-#include <D3DX11.h>
+#include <d3dcompiler.h>
 #include <iostream>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
@@ -17,8 +17,8 @@
 // Add libraries //
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dx11.lib")
 #pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "d3dcompiler.lib")
 
 #define ASSERT(x) {(x > 0) ? true : false;}
 #define SAFE_RELEASE(x) if(x){x->Release(); x = nullptr;}
@@ -74,9 +74,10 @@ private:
     // Inpute Layout
     ID3D11InputLayout*       mInputLayout;
     
-    // Vertext desc arrays
-    //D3D11_INPUT_ELEMENT_DESC descPC[2];
-    //D3D11_INPUT_ELEMENT_DESC descVert[4];
+    // Compiler Items
+    ID3DBlob*               mpBlob;
+    ID3DBlob*               mpErrorMsgBlob;
+    ID3D11PixelShader*      mpPixelShader;
 
     // Matrices for class: Test purpose
     DirectX::XMFLOAT4X4 mView; // View matrix for camera
