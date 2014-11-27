@@ -76,8 +76,10 @@ private:
     
     // Compiler Items
     ID3DBlob*               mpBlob;
+    ID3DBlob*               mpPixelBlob;
     ID3DBlob*               mpErrorMsgBlob;
     ID3D11PixelShader*      mpPixelShader;
+    ID3D11VertexShader*     mpVertexShader;
 
     // Matrices for class: Test purpose
     DirectX::XMFLOAT4X4 mView; // View matrix for camera

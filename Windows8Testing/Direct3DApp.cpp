@@ -287,6 +287,11 @@ void D3DApp::Render(float dt)
     // Clear depth stencil view
     mpD3dDevContext->ClearDepthStencilView(mpDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
     
+    // Set Vertex Shader
+    mpD3dDevContext->VSSetShader(mpVertexShader, nullptr, 0);
+    // Set Pixel Shader
+    mpD3dDevContext->PSSetShader(mpPixelShader, nullptr, 0);
+
     // Set Input Layout
     mpD3dDevContext->IASetInputLayout(mInputLayout);
     mpD3dDevContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -294,11 +299,9 @@ void D3DApp::Render(float dt)
     UINT stride = sizeof(VertexPC);
     UINT offset = 0;
 
-    // TODO :
-    /*
-    D3D11 ERROR: ID3D11DeviceContext::DrawIndexed: A Vertex Shader is always required when drawing, but none is currently bound. [ EXECUTION ERROR #341: DEVICE_DRAW_VERTEX_SHADER_NOT_SET]
-    D3D11 ERROR: ID3D11DeviceContext::DrawIndexed: Rasterization Unit is enabled (PixelShader is not NULL or Depth/Stencil test is enabled and RasterizedStream is not D3D11_SO_NO_RASTERIZED_STREAM) but position is not provided by the last shader before the Rasterization Unit. [ EXECUTION ERROR #362: DEVICE_DRAW_POSITION_NOT_PRESENT]
-    */
+    // TODO:
+    // DISPLAY SOMETHING NOW!
+
     // Set Vertex Buffers
     mpD3dDevContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
     mpD3dDevContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
@@ -327,11 +330,21 @@ void D3DApp::Shutdown(void)
     mpSwapChain->SetFullscreenState(false, NULL);
 
     SAFE_RELEASE(mpD3dDevContext);
-    SAFE_RELEASE(mpD3dDevContext);
+    SAFE_RELEASE(mpD3dDevice);
     SAFE_RELEASE(mpSwapChain);
+    SAFE_RELEASE(mpBackBuffer);
     SAFE_RELEASE(mpRenderTargetView);
+    SAFE_RELEASE(mpDepthStencilBuffer);
+    SAFE_RELEASE(mpDepthStencilView);
     SAFE_RELEASE(mVertexBuffer);
     SAFE_RELEASE(mInputLayout);
+    SAFE_RELEASE(mpBlob);
+    SAFE_RELEASE(mpErrorMsgBlob);
+    SAFE_RELEASE(mpPixelShader);
+    SAFE_RELEASE(mpVertexShader);
+    SAFE_RELEASE(mIndexBuffer);
+    SAFE_RELEASE(mVertexBuffer);
+    SAFE_RELEASE(mPosColorBuffer);
 }
 
 void D3DApp::SetCube()
@@ -448,6 +461,7 @@ void D3DApp::SetCube()
     flags |= D3DCOMPILE_DEBUG;
 #endif
     LPCSTR profile = "vs_5_0";
+
     hr = D3DCompileFromFile(L"VertexShader.hlsl", NULL, NULL, "main", profile, flags, 0, &mpBlob, &mpErrorMsgBlob);
 
     if (FAILED(hr))
@@ -464,7 +478,42 @@ void D3DApp::SetCube()
         }
     }
 
-    hr = mpD3dDevice->CreateInputLayout(vertDesc, 2, mpBlob->GetBufferPointer(), mpBlob->GetBufferSize(), &mInputLayout);
+    // Create the Vertex Shader
+    hr = mpD3dDevice->CreateVertexShader(mpBlob->GetBufferPointer(), mpBlob->GetBufferSize(), nullptr, &mpVertexShader);
+
+    if (FAILED(hr))
+    {
+        MessageBox(mHWnd, L"Failed to create vertex shader", L"Vertex Shader Creation Failed!", MB_ICONERROR);
+        mpBlob->Release();
+    }
+
+    // Set up Pixel Shader
+    profile = "ps_5_0";
+    hr = D3DCompileFromFile(L"PixelShader.hlsl", NULL, NULL, "main", profile, flags, 0, &mpPixelBlob, &mpErrorMsgBlob);
+
+    if (FAILED(hr))
+    {
+        if (mpErrorMsgBlob)
+        {
+            OutputDebugStringA(reinterpret_cast<const char*>(mpErrorMsgBlob->GetBufferPointer()));
+            mpErrorMsgBlob->Release();
+        }
+
+        if (mpPixelBlob)
+        {
+            mpPixelBlob->Release();
+        }
+    }
+
+    hr = mpD3dDevice->CreatePixelShader(mpPixelBlob->GetBufferPointer(), mpPixelBlob->GetBufferSize(), nullptr, &mpPixelShader);
+
+    if (FAILED(hr))
+    {
+        MessageBox(mHWnd, L"Failed to create pixel shader", L"Pixel shader creation failed!", MB_ICONERROR);
+        mpPixelBlob->Release();
+    }
+
+    hr = mpD3dDevice->CreateInputLayout(vertDesc, ARRAYSIZE(vertDesc)/*size of vertDesc*/, mpBlob->GetBufferPointer(), mpBlob->GetBufferSize(), &mInputLayout);
 
     if (FAILED(hr))
     {

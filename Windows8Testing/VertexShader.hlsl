@@ -5,13 +5,13 @@ cbuffer cbPerObject
 
 struct VertexOut
 {
-    float4 PosH : POSITON;
+    float4 PosH : SV_POSITION;
     float4 Color : COLOR;
 };
 
 struct VertexIn
 {
-    float3 PosH : POSITION;
+    float3 PosL : POSITION;
     float4 Color : COLOR;
 };
 
@@ -19,7 +19,7 @@ VertexOut main(VertexIn vin)
 {
     VertexOut vOut;
 
-    vOut.PosH = mul(float4(vin.PosH, 1.0f), gWorldViewProj);
+    vOut.PosH = mul(float4(vin.PosL, 1.0f), gWorldViewProj);
 
     vOut.Color = vin.Color;
 
