@@ -187,7 +187,7 @@ void D3DApp::SetViewPort(int width, int height)
     viewport.Width = width;
     viewport.Height = height;
 
-    mpD3dDevContext->RSSetViewports(2, &viewport);
+    mpD3dDevContext->RSSetViewports(1, &viewport);
 }
 
 void D3DApp::SetSwapChainDesc()
@@ -293,8 +293,16 @@ void D3DApp::Render(float dt)
 
     UINT stride = sizeof(VertexPC);
     UINT offset = 0;
+
+    // TODO :
+    /*
+    D3D11 ERROR: ID3D11DeviceContext::DrawIndexed: A Vertex Shader is always required when drawing, but none is currently bound. [ EXECUTION ERROR #341: DEVICE_DRAW_VERTEX_SHADER_NOT_SET]
+    D3D11 ERROR: ID3D11DeviceContext::DrawIndexed: The current IndexBufferFormat (0x3, R32G32B32A32_UINT) is not valid for usage as an IAIndexBuffer Format. [ EXECUTION ERROR #358: DEVICE_DRAW_INDEX_BUFFER_FORMAT_INVALID]
+    D3D11 ERROR: ID3D11DeviceContext::DrawIndexed: Rasterization Unit is enabled (PixelShader is not NULL or Depth/Stencil test is enabled and RasterizedStream is not D3D11_SO_NO_RASTERIZED_STREAM) but position is not provided by the last shader before the Rasterization Unit. [ EXECUTION ERROR #362: DEVICE_DRAW_POSITION_NOT_PRESENT]
+    */
     // Set Vertex Buffers
     mpD3dDevContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
+    mpD3dDevContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
     mpD3dDevContext->DrawIndexed(36, 0, 0);
 
@@ -427,20 +435,43 @@ void D3DApp::SetCube()
         return;
     }
 
-    // Set Vertex Input Layout
-    //D3D11_INPUT_ELEMENT_DESC vertDesc[] =
-    //{
-    //    { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-    //    { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-    //};
+     //Set Vertex Input Layout
+    D3D11_INPUT_ELEMENT_DESC vertDesc[] =
+    {
+        { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+        { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+    };
 
-    //hr = mpD3dDevice->CreateInputLayout(vertDesc, 2, 0, 0, &mInputLayout);
+    // Compile shaders before creating input layout
+    // Vertex Shader
+    UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
+#if defined (DEBUG) || (_DEBUG)
+    flags |= D3DCOMPILE_DEBUG;
+#endif
+    LPCSTR profile = "vs_5_0";
+    hr = D3DCompileFromFile(L"VertexShader.hlsl", NULL, NULL, "VS", profile, flags, 0, &mpBlob, &mpErrorMsgBlob);
 
-    //if (FAILED(hr))
-    //{
-    //    MessageBox(mHWnd, L"Failed to create Input Layout", L"Input Layout Create Failed", MB_ICONERROR);
-    //    return;
-    //}
+    if (FAILED(hr))
+    {
+        if (mpErrorMsgBlob)
+        {
+            OutputDebugStringA(reinterpret_cast<const char*>(mpErrorMsgBlob->GetBufferPointer()));
+            mpErrorMsgBlob->Release();
+        }
+
+        if (mpBlob)
+        {
+            mpBlob->Release();
+        }
+    }
+
+    hr = mpD3dDevice->CreateInputLayout(vertDesc, 2, mpBlob->GetBufferPointer(), mpBlob->GetBufferSize(), &mInputLayout);
+
+    if (FAILED(hr))
+    {
+        MessageBox(mHWnd, L"Failed to create Input Layout", L"Input Layout Create Failed", MB_ICONERROR);
+        return;
+    }
 
     return;
 }
