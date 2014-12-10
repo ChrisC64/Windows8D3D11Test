@@ -18,12 +18,14 @@ D3DApp::D3DApp() : mHWnd(0),
     mpRenderTargetView(0),
     mVertexBuffer(0),
     mInputLayout(0),
-    mPosColorBuffer(0)
+    mPosColorBuffer(0),
+    mConstantBuffer(nullptr)
 {
     color[0] = 0.0f;
     color[1] = 0.2f;
     color[2] = 0.4f;
     color[3] = 1.0f;
+
 }
 
 D3DApp::~D3DApp()
@@ -41,15 +43,28 @@ HRESULT D3DApp::InitDevice(HWND hWnd)
 
     HRESULT hr;
 
-    UINT creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+    UINT creationFlags = 0;
 
-#if defined(_DEBUG)
+#ifdef _DEBUG
     creationFlags = D3D11_CREATE_DEVICE_DEBUG;
+#elif 
+    creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 #endif
 
-    // Set up Feature Level Desc array
-    D3D_FEATURE_LEVEL featureLevels[]
+    D3D_DRIVER_TYPE driverTypes[] =
     {
+        D3D_DRIVER_TYPE_HARDWARE,
+        D3D_DRIVER_TYPE_WARP,
+        D3D_DRIVER_TYPE_SOFTWARE
+
+    };
+
+    UINT numDriverTypes = ARRAYSIZE(driverTypes);
+
+    // Set up Feature Level Desc array
+    D3D_FEATURE_LEVEL featureLevels[] =
+    {
+        D3D_FEATURE_LEVEL_11_1,
         D3D_FEATURE_LEVEL_11_0,
         D3D_FEATURE_LEVEL_10_1,
         D3D_FEATURE_LEVEL_10_0,
@@ -77,9 +92,32 @@ HRESULT D3DApp::InitDevice(HWND hWnd)
     if (FAILED(hr))
     {
         printf_s("Failed to create device. Error: ");
-        MessageBox(mHWnd, L"Failed to Create Device", L"Device Creation Failed", MB_ICONERROR);
+        MessageBox(mHWnd, L"Failed to Create Device and SwapChain", L"Device Creation Failed", MB_ICONERROR);
         throw(hr);
     }
+
+    //// Obtain DXGI Factorysince we used NULL for above
+    //IDXGIFactory1* dxgiFactory = nullptr;
+    //IDXGIDevice* dxgiDevice = nullptr;
+
+    //hr = mpD3dDevice->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&dxgiDevice));
+    //if (SUCCEEDED(hr))
+    //{
+    //    // Get Adapter - Display Sub-system - of the device (graphics card or motherboard, may vary on device)
+    //    IDXGIAdapter* adapter = nullptr;
+    //    hr = dxgiDevice->GetAdapter(&adapter);
+    //    if (SUCCEEDED(hr))
+    //    {
+    //        hr = adapter->GetParent(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(&dxgiFactory));
+    //        adapter->Release();
+    //    }
+    //    dxgiDevice->Release();
+    //}
+
+    //if (FAILED(hr))
+    //{
+    //    MessageBox(mHWnd, L"Failed to QueryInterface of the devie", L"QueryInteraceFailed", MB_OK);
+    //}
 
     hr = InitRenderTarget();
 
@@ -91,6 +129,12 @@ HRESULT D3DApp::InitDevice(HWND hWnd)
     }
 
     SetViewPort(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    SetRasterState();
+
+    InitWorldMatrix();
+
+    InitConstantBuffer();
 
     return(hr);
 }
@@ -186,6 +230,7 @@ void D3DApp::SetViewPort(int width, int height)
     viewport.TopLeftY = 0;
     viewport.Width = width;
     viewport.Height = height;
+    viewport.MaxDepth = 1.0f;
 
     mpD3dDevContext->RSSetViewports(1, &viewport);
 }
@@ -206,15 +251,21 @@ void D3DApp::SetSwapChainDesc()
     }
 
     // Set the swap chain structure
-    mScd.BufferCount = 1;                             // Size of back buffer
+    mScd.BufferCount = 1;                                   // Size of back buffer
     mScd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;    // Set the display buffer format (32 bit format)
     mScd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;     // Use the surface or resource as an output render only
     mScd.OutputWindow = mHWnd;                              // Handler to the window that will be used
     mScd.SampleDesc.Count = 4;                              // How many multi samples to use
+    mScd.SampleDesc.Quality = 0;
     mScd.Windowed = true;                                   // Window mode
     mScd.BufferDesc.Width = SCREEN_WIDTH;                   // Back buffer width
     mScd.BufferDesc.Height = SCREEN_HEIGHT;                 // Backk buffer height
     mScd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;    // Allow full-screen switching
+    mScd.OutputWindow = mHWnd;                              // Handler to output window
+    mScd.Windowed = TRUE;                                   // Window or FullScreen
+    mScd.BufferDesc.RefreshRate.Numerator = 60;             // Refresh Rate top
+    mScd.BufferDesc.RefreshRate.Denominator = 1;            // Refresh Rate Bottom 60 / 1 = 60FPS
+
 }
 
 void D3DApp::CalcFps()
@@ -229,6 +280,21 @@ void D3DApp::Render(float dt)
     {
         return;
     }
+    // Update our time
+    static float t = 0.0f;
+   
+   static ULONGLONG timeStart = 0;
+   ULONGLONG timeCur = GetTickCount64();
+   if (timeStart == 0)
+       timeStart = timeCur;
+   t = (timeCur - timeStart) / 1000.0f;
+   
+
+    //
+    // Animate the cube
+    //
+    m_World = DirectX::XMMatrixRotationRollPitchYaw (t / 4, t/2, t * 2);
+    //m_World = DirectX::XMMatrixRotationY(t / 2);
 
     //// Set up of Floats to load into our matrix
     //DirectX::XMFLOAT4X4 pos(/*m11*/0.0f, 0.0f, 0.0f, 0.0f, 
@@ -255,66 +321,35 @@ void D3DApp::Render(float dt)
     //matResult = DirectX::XMMatrixMultiply(matResult, matLookAt);
     //matResult = DirectX::XMMatrixMultiply(matResult, matUp);
     
-    // Set View Matrix Identity
-    m_View = DirectX::XMMatrixIdentity();
-
-
-    // Create XMFloat3s as eyePos, LookAt, and Up
-    DirectX::XMFLOAT3 eyePos;
-    DirectX::XMFLOAT3 lookAt;
-    DirectX::XMFLOAT3 up;
-
-    eyePos.x = 0.0f;
-    eyePos.y = 5.0f;
-    eyePos.z = -10.0f;
-
-    lookAt.x = 0.0f;
-    lookAt.y = 0.0f;
-    lookAt.z = 0.0f;
-
-    up.x = 0.0f;
-    up.y = 1.0f;
-    up.z = 0.0f;
-
     // Set up world view matrix
     //DirectX::XMMATRIX view = DirectX::XMMatrixIdentity();
     //DirectX::XMStoreFloat4x4(&mView, matResult);
 
-    m_View = DirectX::XMMatrixLookAtLH(DirectX::XMLoadFloat3(&eyePos), DirectX::XMLoadFloat3(&lookAt), DirectX::XMLoadFloat3(&up));
-
     // Clear the back buffer to a color
     mpD3dDevContext->ClearRenderTargetView(mpRenderTargetView, color);
+
+    //m_World = DirectX::XMMatrixIdentity();
+
+    // Transpose our Matrices
+    ConstantBuffer cb;
+
+    cb.world = DirectX::XMMatrixTranspose(m_World);
+    cb.view = DirectX::XMMatrixTranspose(m_View);
+    cb.proj = DirectX::XMMatrixTranspose(m_Projection);
+    mpD3dDevContext->UpdateSubresource(mConstantBuffer, 0, nullptr, &cb, 0, 0);
+
     // Clear depth stencil view
-    mpD3dDevContext->ClearDepthStencilView(mpDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+    //mpD3dDevContext->ClearDepthStencilView(mpDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
     
     // Set Vertex Shader
     mpD3dDevContext->VSSetShader(mpVertexShader, nullptr, 0);
+    // Set Constant buffer
+    mpD3dDevContext->VSSetConstantBuffers(0, 1, &mConstantBuffer);
     // Set Pixel Shader
     mpD3dDevContext->PSSetShader(mpPixelShader, nullptr, 0);
 
-    // Set Input Layout
-    mpD3dDevContext->IASetInputLayout(mInputLayout);
-    mpD3dDevContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    UINT stride = sizeof(VertexPC);
-    UINT offset = 0;
-
-    // TODO:
-    // DISPLAY SOMETHING NOW!
-
-    // Set Vertex Buffers
-    mpD3dDevContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
-    mpD3dDevContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
     mpD3dDevContext->DrawIndexed(36, 0, 0);
-
-    // Render any other parts of the scene here (implement later: the world matrix, rot matrix, etc)
-    /*if (dt >= 1.0f)
-    {
-        color[0] += 0.001f;
-        color[1] += 0.001f;
-        color[2] += 0.001f;
-    }*/
 
     SetWindowText(mHWnd, L"Chris Carlos: D3D11 Demo");
     
@@ -328,7 +363,7 @@ void D3DApp::Render(float dt)
 void D3DApp::Shutdown(void)
 {
     mpSwapChain->SetFullscreenState(false, NULL);
-
+    mpD3dDevContext->ClearState();
     SAFE_RELEASE(mpD3dDevContext);
     SAFE_RELEASE(mpD3dDevice);
     SAFE_RELEASE(mpSwapChain);
@@ -338,13 +373,16 @@ void D3DApp::Shutdown(void)
     SAFE_RELEASE(mpDepthStencilView);
     SAFE_RELEASE(mVertexBuffer);
     SAFE_RELEASE(mInputLayout);
-    SAFE_RELEASE(mpBlob);
+    SAFE_RELEASE(mpVSBlob);
+    SAFE_RELEASE(mpPSBlob);
     SAFE_RELEASE(mpErrorMsgBlob);
     SAFE_RELEASE(mpPixelShader);
     SAFE_RELEASE(mpVertexShader);
     SAFE_RELEASE(mIndexBuffer);
     SAFE_RELEASE(mVertexBuffer);
     SAFE_RELEASE(mPosColorBuffer);
+    SAFE_RELEASE(mConstantBuffer);
+
 }
 
 void D3DApp::SetCube()
@@ -359,23 +397,39 @@ void D3DApp::SetCube()
     DirectX::XMFLOAT4 Cyan = { 0.0f, 1.0f, 1.0f, 1.0f };
     DirectX::XMFLOAT4 Magenta = { 1.0f, 0.0f, 1.0f, 1.0f };
 
-    // Assigning vertices pos and color with two lines : Just because...
-    vertices[0].pos = DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f);
-    vertices[0].color = White;
-    // Assign vertices pos and color in one line
-    vertices[1] = { DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), Black };
-    vertices[2] = { DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), Red };
-    vertices[3] = { DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), Green };
-    vertices[4] = { DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), Blue };
-    vertices[5] = { DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), Yellow };
-    vertices[6] = { DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), Cyan };
-    vertices[7] = { DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), Magenta };
+    VertexPC vertices[] =
+    {
+        // Assign vertices pos and color in one line
+        { DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), White },
+        { DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), Black },
+        { DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), Red },
+        { DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), Green },
+        { DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), Blue },
+        { DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), Yellow },
+        { DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), Cyan },
+        { DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), Magenta }
+    };
+
+
+    // Create vertex buffer
+    //VertexPC vertices[] =
+    //{
+    //    { DirectX::XMFLOAT3(-1.0f, 1.0f, -1.0f), DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f) },
+    //    { DirectX::XMFLOAT3(1.0f, 1.0f, -1.0f), DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f) },
+    //    { DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f), DirectX::XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f) },
+    //    { DirectX::XMFLOAT3(-1.0f, 1.0f, 1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) },
+    //    { DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 1.0f, 1.0f) },
+    //    { DirectX::XMFLOAT3(1.0f, -1.0f, -1.0f), DirectX::XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f) },
+    //    { DirectX::XMFLOAT3(1.0f, -1.0f, 1.0f), DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f) },
+    //    { DirectX::XMFLOAT3(-1.0f, -1.0f, 1.0f), DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f) },
+    //};
+    HRESULT hr;
 
     // Set up buffer description
     D3D11_BUFFER_DESC vbd;
-
-    vbd.Usage = D3D11_USAGE_IMMUTABLE;
-    vbd.ByteWidth = sizeof(VertexPC) * 8;
+    ZeroMemory(&vbd, sizeof(vbd));
+    vbd.Usage = D3D11_USAGE_DEFAULT;
+    vbd.ByteWidth = sizeof(VertexPC) * (sizeof(vertices)/sizeof(vertices[0]));
     vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
     vbd.CPUAccessFlags = 0;
     vbd.MiscFlags = 0;
@@ -383,10 +437,9 @@ void D3DApp::SetCube()
 
     // Set up subsource data: This describes the data we want to initialize the buffer contents with
     D3D11_SUBRESOURCE_DATA vInitData;
-    
+    ZeroMemory(&vInitData, sizeof(vInitData));
     vInitData.pSysMem = vertices;
 
-    HRESULT hr;
 
     hr = mpD3dDevice->CreateBuffer(
         &vbd,
@@ -399,38 +452,63 @@ void D3DApp::SetCube()
         return;
     }
 
+    UINT stride = sizeof(VertexPC);
+    UINT offset = 0;
+
+    // Set Vertex Buffers
+    mpD3dDevContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
+
     // Set up Index Buffer of CUBE
+    // IF DXGI_FORMAT_R32_UINT, use UINT for Indices[] data type, else set to WORD if DXGI_FORMAT_R16_UINT (let's see if we don't even need to change that with some tests!)
 
     UINT indices[] =
     {
         // FRONT FACE
-        0, 1, 2,
+        2, 0, 1,
         0, 2, 3,
 
         // BACK FACE
-        4, 6, 5,
+        6, 5, 4,
         4, 7, 6,
 
         // LEFT FACE
-        4, 5, 1,
-        4, 1, 0,
+        1, 0, 5,
+        0, 4, 5,
 
         // RIGHT FACE
-        3, 2, 6,
-        3, 6, 7,
+        2, 6, 3,
+        7, 3, 6,
 
         // TOP FACE
-        1, 5, 6,
-        1, 6, 2,
+        6, 2, 5,
+        1, 5, 2,
 
         // BOTTOM FACE
-        4, 0, 3,
-        4, 3, 7
-    };
+        7, 4, 0,
+        3, 7, 0,
 
+        /*3, 1, 0,
+        2, 1, 3,
+
+        0, 5, 4,
+        1, 5, 0,
+
+        3, 4, 7,
+        0, 4, 3,
+
+        1, 6, 5,
+        2, 6, 1,
+
+        2, 7, 6,
+        3, 7, 2,*/
+
+        /*6, 4, 5,
+        7, 4, 6,*/
+    };
     D3D11_BUFFER_DESC ibd;
-    ibd.Usage = D3D11_USAGE_IMMUTABLE;
-    ibd.ByteWidth = sizeof(UINT) * 36;
+    ZeroMemory(&ibd, sizeof(ibd));
+    ibd.Usage = D3D11_USAGE_DEFAULT;
+    ibd.ByteWidth = sizeof(UINT) * (sizeof(indices)/sizeof(indices[0]));
     ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
     ibd.CPUAccessFlags = 0;
     ibd.MiscFlags = 0;
@@ -447,6 +525,12 @@ void D3DApp::SetCube()
         return;
     }
 
+    // Set Index Buffer 
+    mpD3dDevContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+    // Set Primitive Topology
+    mpD3dDevContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
      //Set Vertex Input Layout
     D3D11_INPUT_ELEMENT_DESC vertDesc[] =
     {
@@ -454,15 +538,18 @@ void D3DApp::SetCube()
         { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
     };
 
+    UINT numElements = ARRAYSIZE(vertDesc);
+
     // Compile shaders before creating input layout
     // Vertex Shader
     UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
-#if defined (DEBUG) || (_DEBUG)
+#ifdef _DEBUG
     flags |= D3DCOMPILE_DEBUG;
+    flags |= D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
     LPCSTR profile = "vs_5_0";
 
-    hr = D3DCompileFromFile(L"VertexShader.hlsl", NULL, NULL, "main", profile, flags, 0, &mpBlob, &mpErrorMsgBlob);
+    hr = D3DCompileFromFile(L"VertexShader.hlsl", nullptr, nullptr, "VS", profile, flags, 0, &mpVSBlob, &mpErrorMsgBlob);
 
     if (FAILED(hr))
     {
@@ -472,48 +559,22 @@ void D3DApp::SetCube()
             mpErrorMsgBlob->Release();
         }
 
-        if (mpBlob)
+        if (mpVSBlob)
         {
-            mpBlob->Release();
+            mpVSBlob->Release();
         }
     }
 
     // Create the Vertex Shader
-    hr = mpD3dDevice->CreateVertexShader(mpBlob->GetBufferPointer(), mpBlob->GetBufferSize(), nullptr, &mpVertexShader);
+    hr = mpD3dDevice->CreateVertexShader(mpVSBlob->GetBufferPointer(), mpVSBlob->GetBufferSize(), nullptr, &mpVertexShader);
 
     if (FAILED(hr))
     {
         MessageBox(mHWnd, L"Failed to create vertex shader", L"Vertex Shader Creation Failed!", MB_ICONERROR);
-        mpBlob->Release();
+        mpVSBlob->Release();
     }
 
-    // Set up Pixel Shader
-    profile = "ps_5_0";
-    hr = D3DCompileFromFile(L"PixelShader.hlsl", NULL, NULL, "main", profile, flags, 0, &mpPixelBlob, &mpErrorMsgBlob);
-
-    if (FAILED(hr))
-    {
-        if (mpErrorMsgBlob)
-        {
-            OutputDebugStringA(reinterpret_cast<const char*>(mpErrorMsgBlob->GetBufferPointer()));
-            mpErrorMsgBlob->Release();
-        }
-
-        if (mpPixelBlob)
-        {
-            mpPixelBlob->Release();
-        }
-    }
-
-    hr = mpD3dDevice->CreatePixelShader(mpPixelBlob->GetBufferPointer(), mpPixelBlob->GetBufferSize(), nullptr, &mpPixelShader);
-
-    if (FAILED(hr))
-    {
-        MessageBox(mHWnd, L"Failed to create pixel shader", L"Pixel shader creation failed!", MB_ICONERROR);
-        mpPixelBlob->Release();
-    }
-
-    hr = mpD3dDevice->CreateInputLayout(vertDesc, ARRAYSIZE(vertDesc)/*size of vertDesc*/, mpBlob->GetBufferPointer(), mpBlob->GetBufferSize(), &mInputLayout);
+    hr = mpD3dDevice->CreateInputLayout(vertDesc, numElements/*size of vertDesc*/, mpVSBlob->GetBufferPointer(), mpVSBlob->GetBufferSize(), &mInputLayout);
 
     if (FAILED(hr))
     {
@@ -521,5 +582,118 @@ void D3DApp::SetCube()
         return;
     }
 
+    // Set Input Layout
+    mpD3dDevContext->IASetInputLayout(mInputLayout);
+
+    // Set up Pixel Shader
+    profile = "ps_5_0";
+    hr = D3DCompileFromFile(L"PixelShader.hlsl", nullptr, nullptr/*D3D_COMPILE_STANDARD_FILE_INCLUDE*/, "PS", profile, flags, 0, &mpPSBlob, &mpErrorMsgBlob);
+
+    if (FAILED(hr))
+    {
+        if (mpErrorMsgBlob)
+        {
+            OutputDebugStringA(reinterpret_cast<const char*>(mpErrorMsgBlob->GetBufferPointer()));
+            mpErrorMsgBlob->Release();
+        }
+
+        if (mpPSBlob)
+        {
+            mpPSBlob->Release();
+        }
+    }
+
+    hr = mpD3dDevice->CreatePixelShader(mpPSBlob->GetBufferPointer(), mpPSBlob->GetBufferSize(), nullptr, &mpPixelShader);
+
+    if (FAILED(hr))
+    {
+        MessageBox(mHWnd, L"Failed to create pixel shader", L"Pixel shader creation failed!", MB_ICONERROR);
+        mpPSBlob->Release();
+    }
+
     return;
+}
+
+void D3DApp::InitWorldMatrix()
+{
+    // World Matrix Init
+    m_World = DirectX::XMMatrixIdentity();
+    m_View = DirectX::XMMatrixIdentity();
+    m_Projection = DirectX::XMMatrixIdentity();
+
+    // Rect struct
+    RECT rc;
+    GetClientRect(mHWnd, &rc);
+    UINT width = rc.right - rc.left;
+    UINT height = rc.bottom - rc.top;
+
+    DirectX::XMVECTOR eyePos = DirectX::XMVectorSet(0.0f, 1.0f, -5.0f, 0.0f);
+    DirectX::XMVECTOR lookAt = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+    DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+    // Set Camera Position and View
+    //eyePos.x = 0.0f;
+    //eyePos.y = 1.0f;
+    //eyePos.z = -10.0f;
+
+    //lookAt.x = 0.0f;
+    //lookAt.y = 1.0f;
+    //lookAt.z = 0.0f;
+
+    //up.x = 0.0f;
+    //up.y = 1.0f;
+    //up.z = 0.0f;
+
+    // Set View matrix up
+    //m_View = DirectX::XMMatrixLookAtLH(DirectX::XMLoadFloat3(&eyePos), DirectX::XMLoadFloat3(&lookAt), DirectX::XMLoadFloat3(&up));
+    m_View = DirectX::XMMatrixLookAtLH(eyePos, lookAt, up);
+    m_Projection = DirectX::XMMatrixPerspectiveFovLH(DirectX::XM_PIDIV2, width / (float)height, 0.01f, 1000.0f);
+}
+
+void D3DApp::InitConstantBuffer()
+{
+    D3D11_BUFFER_DESC bd;
+    ZeroMemory(&bd, sizeof(bd));
+
+    bd.Usage        = D3D11_USAGE_DEFAULT;
+    bd.ByteWidth    = sizeof(ConstantBuffer);
+    bd.BindFlags    = D3D10_BIND_CONSTANT_BUFFER;
+    bd.CPUAccessFlags = 0;
+
+    HRESULT hr;
+
+    hr = mpD3dDevice->CreateBuffer(&bd, nullptr, &mConstantBuffer);
+
+    if (FAILED(hr))
+    {
+        MessageBox(mHWnd, L"Failed to create Constant Buffer!", L"Constant Buffer Init Failed!", MB_OK);
+    }
+}
+
+void D3DApp::SetRasterState()
+{
+    if (!mpD3dDevContext)
+    {
+        return;
+    }
+
+    ID3D11RasterizerState* pRaster;
+    
+    D3D11_RASTERIZER_DESC noCullingDesc;
+    ZeroMemory(&noCullingDesc, sizeof(D3D11_RASTERIZER_DESC));
+
+    noCullingDesc.FillMode = D3D11_FILL_SOLID;
+    noCullingDesc.CullMode = D3D11_CULL_BACK;
+    noCullingDesc.FrontCounterClockwise = false;
+    noCullingDesc.DepthBias = 0;
+    noCullingDesc.SlopeScaledDepthBias = 0.0f;
+    noCullingDesc.DepthBiasClamp = 0.0f;
+    noCullingDesc.DepthClipEnable = true;
+    noCullingDesc.ScissorEnable = false;
+    noCullingDesc.MultisampleEnable = true;
+    noCullingDesc.AntialiasedLineEnable = false;
+
+    mpD3dDevice->CreateRasterizerState(&noCullingDesc, &pRaster);
+    mpD3dDevContext->RSSetState(pRaster);
+
+    SAFE_RELEASE(pRaster);
 }

@@ -66,25 +66,31 @@ private:
     ID3D11Texture2D*        mpDepthStencilBuffer;
     ID3D11DepthStencilView* mpDepthStencilView;
 
-    // Vertex BUffers
+    // BUffers
     ID3D11Buffer*           mVertexBuffer;
     ID3D11Buffer*           mPosColorBuffer;
     ID3D11Buffer*           mIndexBuffer;   
+    ID3D11Buffer*           mConstantBuffer;
 
     // Inpute Layout
     ID3D11InputLayout*       mInputLayout;
     
     // Compiler Items
-    ID3DBlob*               mpBlob;
-    ID3DBlob*               mpPixelBlob;
+    ID3DBlob*               mpVSBlob;
+    ID3DBlob*               mpPSBlob;
     ID3DBlob*               mpErrorMsgBlob;
     ID3D11PixelShader*      mpPixelShader;
     ID3D11VertexShader*     mpVertexShader;
 
-    // Matrices for class: Test purpose
-    DirectX::XMFLOAT4X4 mView; // View matrix for camera
-    DirectX::XMFLOAT4X4 mWorld; // World matrix
-    DirectX::XMFLOAT4X4 mProj; // Project matrix
+    //// Matrices for class: Test purpose
+    //DirectX::XMFLOAT4X4 mView; // View matrix for camera
+    //DirectX::XMFLOAT4X4 mWorld; // World matrix
+    //DirectX::XMFLOAT4X4 mProj; // Project matrix
+
+    //// Camera Position
+    //DirectX::XMFLOAT3 eyePos;
+    //DirectX::XMFLOAT3 lookAt;
+    //DirectX::XMFLOAT3 up;
 
     // Color
     float                   color[4];
@@ -94,6 +100,8 @@ private:
 
     // Temp Use for practice
     DirectX::XMMATRIX m_View;
+    DirectX::XMMATRIX m_World;
+    DirectX::XMMATRIX m_Projection;
     // Struct for creating a triangle to display on screen
 
     // POS and COLOR struct
@@ -112,8 +120,15 @@ private:
         DirectX::XMFLOAT2 Tex1;
     };
 
+    struct ConstantBuffer
+    {
+        DirectX::XMMATRIX world;
+        DirectX::XMMATRIX view;
+        DirectX::XMMATRIX proj;
+    };
+
     // variables
-    VertexPC    vertices[8];
+    //VertexPC    vertices[4];
 
 public:
 
@@ -182,6 +197,24 @@ public:
         add in our own behaviors afterward to do more exciting things!
     */
     void SetCube();
+
+    /*  Name: InitWorldMatrix
+        Param: void
+        Info: This is going to set our Matrices used for our world, lookAt, Eye, Up, view, and Projection.
+    */
+    void InitWorldMatrix();
+
+    /*  Name: InitConstantBuffer
+        Param: void
+        Info: Initialize the constant buffer that will be used for our world, view, and proj matrices.
+    */
+    void InitConstantBuffer();
+
+    /*  Name: SetRasterizerState()
+        Param: void
+        Info: Set the Rasterizer description for the device. 
+    */
+    void SetRasterState();
 
     /* Name: Shutdown(void)
        Paras: void

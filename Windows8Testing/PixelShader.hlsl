@@ -1,4 +1,11 @@
-float4 main() : SV_TARGET
+//#include "VertexShader.hlsl"
+struct PS_INPUT
 {
-	return float4(0.0f, 1.0f, 1.0f, 1.0f);
+    float4 Position : SV_POSITION;
+    float4 Color : COLOR;
+};
+
+float4 PS( PS_INPUT input) : SV_Target
+{
+    return input.Color;
 }
