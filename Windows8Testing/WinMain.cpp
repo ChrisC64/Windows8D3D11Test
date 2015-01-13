@@ -92,13 +92,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     // Initiate timer
     Timer GameClock;
+    GameClock.Tick();
     // Initialize the window
 	InitWindow();
 
     D3DApp  DxApp;
-
+    float gameTime = 0;
     DxApp.InitDevice(g_hWnd);
-    DxApp.SetCube();
+    //DxApp.SetCube();
 	// Use msg structure for catching windows Messages
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
@@ -117,8 +118,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
         /*QueryPerformanceCounter((LARGE_INTEGER*)&g_currTimeStamp);
         g_deltaTime = ((g_currTimeStamp - g_prevTimeStamp) * g_secsPerCnt);*/
-        GameClock.Tick();
-        DxApp.Render(GameClock.DeltaTime());
+        //GameClock.Tick();
+        gameTime += GameClock.DeltaTime();
+        DxApp.Render(gameTime);
+        //Sleep(1000);
         /*g_currTimeStamp = g_prevTimeStamp;*/
         
 	}

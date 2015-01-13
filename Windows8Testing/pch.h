@@ -1,0 +1,9 @@
+#pragma once
+#include <d3d11.h>
+#include <dxgi.h>
+#include <stdio.h>
+#include <d3dcompiler.h>
+#include <iostream>
+#include <DirectXMath.h>
+#include <DirectXColors.h>
+#include <DirectXColors.h>

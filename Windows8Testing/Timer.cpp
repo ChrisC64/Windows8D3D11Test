@@ -8,7 +8,8 @@ m_CurrTime(0),
 m_PauseTime(0),
 m_PrevTime(0),
 m_StopTime(0),
-m_Stopped(false)
+m_Stopped(false),
+m_seconds(1000.0f)
 {
     // Begin timer at creation
     __int64 cntsPerSec;
@@ -51,6 +52,16 @@ void Timer::Tick()
 
 float Timer::DeltaTime()const
 {
+    // Get the current time
+    __int64 currTime;
+    QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
+    (__int64)m_CurrTime = currTime;
+
+    // Find the Delta tie
+    (double)m_DeltaTime = (m_CurrTime - m_PrevTime) * m_SecsPerCount;
+
+    // Prepare for next time frame
+    (__int64)m_PrevTime = m_CurrTime;
     return(float)m_DeltaTime;
 }
 

@@ -15,6 +15,8 @@ protected:
     __int64 m_StopTime;
     __int64 m_PrevTime;
     __int64 m_CurrTime;
+    // For use in displaying seconds/mili/epoch: default is seconds
+    float m_seconds;
 
     bool m_Stopped;
 public:
