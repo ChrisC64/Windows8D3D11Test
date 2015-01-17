@@ -1,8 +1,10 @@
 #include "GameObject.h"
 
-Object::GameObject::GameObject() :
-mId(0),
-mIsActive(true)
+Object::GameObject::GameObject()
 {
-
 }
+
+Object::GameObject::~GameObject()
+{
+}
+

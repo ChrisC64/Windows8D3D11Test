@@ -119,8 +119,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         /*QueryPerformanceCounter((LARGE_INTEGER*)&g_currTimeStamp);
         g_deltaTime = ((g_currTimeStamp - g_prevTimeStamp) * g_secsPerCnt);*/
         //GameClock.Tick();
-        gameTime += GameClock.DeltaTime();
-        DxApp.Render(gameTime);
+        //gameTime += GameClock.DeltaTime();
+        DxApp.Render(GameClock.DeltaTime());
         //Sleep(1000);
         /*g_currTimeStamp = g_prevTimeStamp;*/
         

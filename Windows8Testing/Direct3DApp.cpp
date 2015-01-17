@@ -337,7 +337,8 @@ void D3DApp::Render(float dt)
    //    timeStart = timeCur;
    //t = (timeCur - timeStart) / 1000.0f;
    //
-    float trans = dt;
+    static float trans = 0.0f;
+    trans += dt;
     mCube.SetPosition(0, 0, 0);
 
     // Clear the back buffer to a color
@@ -370,11 +371,10 @@ void D3DApp::Render(float dt)
 
 
     mpD3dImmediateContext->DrawIndexed(36, 0, 0);
-    //char str[124] = "Chris Carlos: D3D11 Demo: ";
+
     char strB[124];
     sprintf_s(strB, "Chris Carlos: %.9f", dt);
-    //strcat_s(str, 148, strB);
-    //std::puts(str);
+
     SetWindowTextA(mHWnd, (LPSTR)strB);
     
     // Present the scene

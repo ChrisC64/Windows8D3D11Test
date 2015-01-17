@@ -1,51 +1,63 @@
 #pragma once
 #include <iostream>
-#include "Direct3DRender.h"
 namespace Object
 {
-    class GameObject : public D3DRender
+    class GameObject
     {
-    private:
-        struct Position
-        {
-            float x;
-            float y;
-            float z;
-        };
+    protected:
+        //struct Position
+        //{
+        //    float x;
+        //    float y;
+        //    float z;
+        //    Position()
+        //    {
+        //        x = 0.0f;
+        //        y = 0.0f;
+        //        z = 0.0f;
+        //    }
+        //    Position(float px, float py, float pz)
+        //    {
+        //        x = px;
+        //        y = py;
+        //        z = pz;
+        //    }
+        //};
+        //Point::Vertex mVertex;
+        //unsigned int mId;
+        //bool    mIsActive;
 
-        unsigned int mId;
-        bool    mIsActive;
-
-        D3DRender *m_pD3dRender;
+        //D3DRender *m_pD3dRender;
         
     public:
         GameObject();
         ~GameObject();
-        virtual void Render() = 0; 
+        //virtual void Render() = 0; 
         virtual void Init() = 0;
         
-        bool IsActive();
+        //bool IsActive();
 
-        ////////////////////
-        // GET PARAMETERS //
-        ////////////////////
-        float GetPositionX();
-        float GetPositionY();
-        float GetPositionZ();
+        //////////////////////
+        //// GET PARAMETERS //
+        //////////////////////
+        //float GetPositionX();
+        //float GetPositionY();
+        //float GetPositionZ();
+        //Position* GetPosition();
 
         ////////////////////
         // SET PARAMETERS //
         ////////////////////
-        void SetPosition(Position *v);
-        void SetPosition(float x, float y, float z);
-        void SetIsActive();
+        //void SetPosition(Point::Vertex::Position *v);
+        //void SetPosition(float x, float y, float z);
+        //void SetIsActive();
 
         /*  Name: Draw
             Param: Float
             Return: void
             Info: The object's draw call to be made 
         */
-        virtual void Draw(float dt, D3DRender* pD3DRender) = 0;
+        virtual void Draw(float dt) = 0;
 
     };
 }
