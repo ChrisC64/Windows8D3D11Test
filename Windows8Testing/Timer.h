@@ -7,7 +7,7 @@
 class Timer
 {
 protected:
-    double m_SecsPerCount;
+    double m_CountsPerSec;
     double m_DeltaTime;
 
     __int64 m_BaseTime;
@@ -15,6 +15,8 @@ protected:
     __int64 m_StopTime;
     __int64 m_PrevTime;
     __int64 m_CurrTime;
+    __int64 m_ElapsedTime; // time elapsed since last check
+    __int64 m_TotalTime; // Total time that has accumulated since start
     // For use in displaying seconds/mili/epoch: default is seconds
     float m_seconds;
 
@@ -53,5 +55,10 @@ public:
     */
     float TotalTime()const;
 
+    /*  Name: TimePassedSinceStart();
+        Return: float 
+        Info: The time this timer has been running (seconds)
+    */
+    float TimePassedSinceStart()const;
 };
 

@@ -1,5 +1,4 @@
-#ifndef POLYGON_CUBE_H
-#define POLYGON_CUB_H
+#pragma once
 #include <iostream>
 #include <DirectXMath.h>
 class Cube 
@@ -130,6 +129,14 @@ public:
     */
     void** GetPointerToIndicesArray();
 
+    /*  Name: GetSizeOfIndexArray
+        Param: void
+        Return: unsigned int
+        Info: Return the size of our indices[]
+    */
+    unsigned int GetSizeOfIndicesArray();
+
+    unsigned int GetSizeOfVerticesArray();
     /*  Name: Render
         Param: float dt
         Return: void
@@ -141,4 +148,3 @@ public:
     */
 
 };
-#endif POLYGON_CUBE_H

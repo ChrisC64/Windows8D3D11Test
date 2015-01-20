@@ -35,7 +35,7 @@ D3DApp::~D3DApp()
 
 
 // We initialized the D3D Device 
-HRESULT D3DApp::InitDevice(HWND hWnd)
+bool D3DApp::InitDevice(HWND hWnd)
 {
     mHWnd = hWnd;
     // Relies on device being created to check MSAA, should not createDeviceAndSwapChain below, instead create device, then set up SwapChain
@@ -86,13 +86,14 @@ HRESULT D3DApp::InitDevice(HWND hWnd)
         &mpSwapChain,                                       // Swap chain address
         &mpD3dDevice,                                       // pointer to the device
         &mFeatureLevel,                                     // pointer to feature level support: D3D_FEATURE_LEVEL
-        &mpD3dImmediateContext                                    // pointer to the device context
+        &mpD3dImmediateContext                              // pointer to the device context
         );
 
     if (FAILED(hr))
     {
         printf_s("Failed to create device. Error: ");
         MessageBox(mHWnd, L"Failed to Create Device and SwapChain", L"Device Creation Failed", MB_ICONERROR);
+        return false;
         throw(hr);
     }
 
@@ -120,7 +121,8 @@ HRESULT D3DApp::InitDevice(HWND hWnd)
     //    MessageBox(mHWnd, L"Failed to QueryInterface of the devie", L"QueryInteraceFailed", MB_OK);
     //}
 
-    hr = InitRenderTarget();
+    // Stuff below will no be needed soon!! // 
+    /*hr = InitRenderTarget();
     if (FAILED(hr))
     {
         MessageBox(mHWnd, L"Failed to Init Render Target", L"Render Target Failed", MB_ICONERROR);
@@ -161,9 +163,9 @@ HRESULT D3DApp::InitDevice(HWND hWnd)
     {
         MessageBox(mHWnd, L"Failed to Compiile Shader Files", L"Comile Shaders Failed", MB_ICONERROR);
         throw(hr);
-    }
-
-    return(hr);
+    }*/
+    // END not needed stuff hopefully soon!! // 
+    return true;
 }
 
 HRESULT D3DApp::InitRenderTarget()
@@ -386,8 +388,14 @@ void D3DApp::Render(float dt)
 
 void D3DApp::Shutdown(void)
 {
-    mpSwapChain->SetFullscreenState(false, NULL);
-    mpD3dImmediateContext->ClearState();
+    if (mpSwapChain)
+    {
+        mpSwapChain->SetFullscreenState(false, NULL);
+    }
+    if (mpD3dImmediateContext)
+    {
+        mpD3dImmediateContext->ClearState();
+    }
     SAFE_RELEASE(mpD3dImmediateContext);
     SAFE_RELEASE(mpD3dDevice);
     SAFE_RELEASE(mpSwapChain);
@@ -454,7 +462,7 @@ HRESULT D3DApp::InitVertBuffer()
 
     if (FAILED(hr))
     {
-        MessageBox(mHWnd, L"Failed to create Cube Buffer!", L"Buffer Creat Failed", MB_ICONERROR);
+        MessageBox(mHWnd, L"Failed to create Cube Buffer!", L"Buffer Create Failed", MB_ICONERROR);
         return hr;
     }
 
@@ -685,4 +693,60 @@ HRESULT D3DApp::CompileShaders()
     mpD3dImmediateContext->IASetInputLayout(mInputLayout);
 
     return S_OK;
+}
+
+// GET METEHODS //
+DirectX::XMMATRIX& D3DApp::GetWorldMat()
+{
+    return m_World;
+}
+
+DirectX::XMMATRIX& D3DApp::GetViewMat()
+{
+    return m_View;
+}
+
+DirectX::XMMATRIX& D3DApp::GetProjMat()
+{
+    return m_Projection;
+}
+// SET METHODS //
+void D3DApp::SetWorldMat(DirectX::XMMATRIX &worldMat)
+{
+    m_World = worldMat;
+}
+
+void D3DApp::SetViewMat(DirectX::XMMATRIX &viewMat)
+{
+    m_View = viewMat;
+}
+
+void D3DApp::SetProjMat(DirectX::XMMATRIX &projMat)
+{
+    m_Projection = projMat;
+}
+
+ID3D11DeviceContext* D3DApp::GetDeviceContext()
+{
+    return this->mpD3dImmediateContext;
+}
+
+ID3D11RenderTargetView* D3DApp::GetRenderTargetView()
+{
+    return this->mpRenderTargetView;
+}
+
+ID3D11Device* D3DApp::GetDevice()
+{
+    return this->mpD3dDevice;
+}
+
+IDXGISwapChain* D3DApp::GetSwapChain()
+{
+    return this->mpSwapChain;
+}
+
+HWND* D3DApp::GetHWND()
+{
+    return &mHWnd;
 }

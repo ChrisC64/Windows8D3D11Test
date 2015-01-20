@@ -134,4 +134,14 @@ void** Cube::GetPointerToIndicesArray()
     return (void**)mIndices;
 }
 
+unsigned int Cube::GetSizeOfIndicesArray()
+{
+    return sizeof(mIndices);
+}
+
+unsigned int Cube::GetSizeOfVerticesArray()
+{
+    return sizeof(mVertices);
+}
+
 

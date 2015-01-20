@@ -127,12 +127,30 @@ public:
     D3DApp();
     ~D3DApp();
 
+    /////////////////
+    // GET METHODS //
+    /////////////////
+    DirectX::XMMATRIX& GetWorldMat();
+    DirectX::XMMATRIX& GetViewMat();
+    DirectX::XMMATRIX& GetProjMat();
+    
+    ID3D11DeviceContext* GetDeviceContext();
+    ID3D11RenderTargetView* GetRenderTargetView();
+    ID3D11Device* GetDevice();
+    IDXGISwapChain* GetSwapChain();
+    HWND* GetHWND();
+
+    // SET METHODS //
+    void SetWorldMat(DirectX::XMMATRIX &worldMat);
+    void SetViewMat(DirectX::XMMATRIX &viewMat);
+    void SetProjMat(DirectX::XMMATRIX &projMat);
+
     /* Name: InitDevice(HWND hwnd)
        Params: Hwnd (Handler to window)
        Return: HRESULT
        Info: This function is used to initalize and set up our D3D Device
        */
-    HRESULT InitDevice(HWND hWnd);
+    bool InitDevice(HWND hWnd);
 
     /* Name: InitRenderTarget()
        Param: Void

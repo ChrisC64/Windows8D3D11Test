@@ -5,52 +5,63 @@ namespace Object
     class GameObject
     {
     protected:
-        //struct Position
-        //{
-        //    float x;
-        //    float y;
-        //    float z;
-        //    Position()
-        //    {
-        //        x = 0.0f;
-        //        y = 0.0f;
-        //        z = 0.0f;
-        //    }
-        //    Position(float px, float py, float pz)
-        //    {
-        //        x = px;
-        //        y = py;
-        //        z = pz;
-        //    }
-        //};
+        struct Vector
+        {
+            float x;
+            float y;
+            float z;
+            Vector()
+            {
+                x = 0.0f;
+                y = 0.0f;
+                z = 0.0f;
+            }
+            Vector(float px, float py, float pz)
+            {
+                x = px;
+                y = py;
+                z = pz;
+            }
+        };
         //Point::Vertex mVertex;
-        //unsigned int mId;
-        //bool    mIsActive;
+        unsigned int mId;
+        bool    mIsActive;
 
         //D3DRender *m_pD3dRender;
         
     public:
         GameObject();
         ~GameObject();
-        //virtual void Render() = 0; 
-        virtual void Init() = 0;
-        
-        //bool IsActive();
 
-        //////////////////////
-        //// GET PARAMETERS //
-        //////////////////////
-        //float GetPositionX();
-        //float GetPositionY();
-        //float GetPositionZ();
-        //Position* GetPosition();
+        virtual void Init() = 0;        
+        virtual bool IsActive() = 0;
 
-        ////////////////////
-        // SET PARAMETERS //
-        ////////////////////
-        //void SetPosition(Point::Vertex::Position *v);
-        //void SetPosition(float x, float y, float z);
-        //void SetIsActive();
+        // Position //
+        virtual float GetPosX() = 0;
+        virtual float GetPosY() = 0;
+        virtual float GetPosZ() = 0;
+
+        // Rotation // 
+        virtual float GetRotX() = 0;
+        virtual float GetRotY() = 0;
+        virtual float GetRotZ() = 0;
+        // Scale //
+        virtual float GetScaleX() = 0;
+        virtual float GetScaleY() = 0;
+        virtual float GetScaleZ() = 0;
+        // Set Methods //
+        virtual void SetPosition(float x, float y, float z) = 0;
+        virtual void SetIsActive(bool isActive) = 0;
+        virtual void SetScale(float x, float y, float z) = 0;
+        virtual void SetRotation(float yaw, float pitch, float roll) = 0;
+        // information on the data structures to return
+        virtual unsigned int GetSizeOfIndices() = 0;
+        virtual unsigned int GetSizeOfVertices() = 0;
+        virtual unsigned int GetSizeOfVertexArray() = 0;
+        virtual unsigned int GetSizeOfIndexArray() = 0;
+        virtual void** GetPointerToVerticesArray() = 0; // Should be const()?
+        virtual void** GetPointerToIndexArray() = 0; // should be const? 
+
 
         /*  Name: Draw
             Param: Float

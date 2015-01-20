@@ -9,13 +9,15 @@
 #include <iostream>
 #include "Direct3DApp.h"
 #include "Timer.h"
+#include "Direct3DRender.h"
+#include "GameObject_Cube.h"
 // Include new headers
 
 /******
 *   GLOBAL VARIABLES
 ******/
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 #define WINDOW_TITLE L"Chris Carlos"
 
 HWND				g_hWnd;          // Handle to the window
@@ -81,6 +83,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	g_hInstance = hInstance;
 	g_bWindowed = true;
 
+    // Initialize the window
+	InitWindow();
+    
+    // Local Variables
     //// Init timer
     //g_cntsPerSec = 0;
     //QueryPerformanceFrequency((LARGE_INTEGER*)&g_cntsPerSec);
@@ -93,14 +99,66 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Initiate timer
     Timer GameClock;
     GameClock.Tick();
-    // Initialize the window
-	InitWindow();
 
     D3DApp  DxApp;
+    Render::D3DRender DxRender;
     float gameTime = 0;
-    DxApp.InitDevice(g_hWnd);
-    //DxApp.SetCube();
-	// Use msg structure for catching windows Messages
+    if (DxApp.InitDevice(g_hWnd))
+    {
+        if (DxRender.Init(&DxApp))
+        {
+            printf("We are good to go!");
+        }
+        else
+        {
+            printf("Something went wrong!");
+        }
+    }
+    else
+    {
+        printf("Failed to create the device! Abort!");
+        return 0;
+    }
+    // Create cube object
+    GO_Cube cubeOne;
+    GO_Cube cubeTwo(
+        3, 0, 0,
+        1, 1, 1,
+        0, 1, 0,
+        true);
+    GO_Cube cubeThree(
+        -3, 0, 0, 
+        1, 1, 1,
+        1, 0, 0,
+        true);
+    GO_Cube cubeFour(
+        0, 3, 0, 
+        1, 1, 1,
+        0, 0, 1,
+        true);
+    std::vector<Object::GameObject*> myCubes;
+    cubeOne.Init();
+    cubeTwo.Init();
+    cubeThree.Init();
+    cubeFour.Init();
+    myCubes.push_back(&cubeOne);
+    myCubes.push_back(&cubeTwo);
+    myCubes.push_back(&cubeThree);
+    myCubes.push_back(&cubeFour);
+    // Add the objects to the buffer of our render
+    for (auto i = 0; i < myCubes.size(); i++)
+    {
+        DxRender.AddToIndexBuffer(
+            myCubes.at(i)->GetSizeOfIndexArray(), 
+            myCubes.at(i)->GetPointerToIndexArray());
+        DxRender.AddToVertBuffer(
+            myCubes.at(i)->GetSizeOfVertexArray(),
+            myCubes.at(i)->GetPointerToVerticesArray(),
+            myCubes.at(i)->GetSizeOfVertices(),
+            0);
+    }
+
+    // Use msg structure for catching windows Messages
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
 
@@ -120,7 +178,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         g_deltaTime = ((g_currTimeStamp - g_prevTimeStamp) * g_secsPerCnt);*/
         //GameClock.Tick();
         //gameTime += GameClock.DeltaTime();
-        DxApp.Render(GameClock.DeltaTime());
+        //DxApp.Render(GameClock.DeltaTime());
+        gameTime = GameClock.DeltaTime();
+        DxRender.Render(gameTime, &myCubes);
+        DxRender.Update(gameTime);
         //Sleep(1000);
         /*g_currTimeStamp = g_prevTimeStamp;*/
         

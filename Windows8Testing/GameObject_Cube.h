@@ -7,34 +7,34 @@
 class GO_Cube : public Object::GameObject
 {
 private:
-    struct Position
+    struct Vector
     {
         float x;
         float y;
         float z;
-        Position()
+        Vector()
         {
             x = 0.0f;
             y = 0.0f;
             z = 0.0f;
         }
-        Position(float px, float py, float pz)
+        Vector(float px, float py, float pz)
         {
             x = px;
             y = py;
             z = pz;
         }
-        Position(const Position& pos)
+        Vector(const Vector& pos)
         {
             (*this) = pos;
         }
-        Position(Position *p)
+        Vector(Vector *p)
         {
             this->x = p->x;
             this->y = p->y;
             this->z = p->z;
         }
-        Position& operator=(const Position& p)
+        Vector& operator=(const Vector& p)
         {
             this->x = p.x;
             this->y = p.y;
@@ -45,9 +45,11 @@ private:
     };
 
 protected:
-    //Position m_position;
+    //Position m_Position;
     Point::Vertex m_Vertices[8];
-    Position m_pos;
+    Vector m_Pos;
+    Vector m_Scale;
+    Vector m_Rotation;
     unsigned int m_indices[36];
     unsigned int m_id;
     bool    m_isActive;
@@ -58,7 +60,11 @@ public:
     GO_Cube();
     ~GO_Cube();
     // Override
-    GO_Cube(float x, float y, float z, bool isActive);
+    GO_Cube(
+        float posx, float posy, float posz,
+        float scalex, float scaley, float scalez,
+        float rotx, float roty, float rotz,
+        bool isActive);
 
     //GO_Cube(Point::Vertex *pVertex, D3DRender* pRender);
     // Initialize Objects referenced by this class
@@ -68,19 +74,28 @@ public:
     void Draw(float dt);
     void Init();
     
-    // Set Params
-    void SetPosition(Position* pPosition);
+    // Set Methods //
+    void SetPosition(Vector* pPosition);
     void SetPosition(float x, float y, float z);
-
     void SetIsActive(bool isActive);
     void SetId(int id);
+    void SetScale(float x, float y, float z);
+    void SetRotation(float rill, float pitch, float yaw);
 
-    // Get Params
-    Position* GetPosition();
+    // Get Methods //
+    Vector* GetPosition();
     float GetPosX();
     float GetPosY();
     float GetPosZ();
-
+        // Rotation // 
+    float GetRotX();
+    float GetRotY();
+    float GetRotZ();
+        // Scale //
+    float GetScaleX();
+    float GetScaleY();
+    float GetScaleZ();
+        // Set Methods //
     bool IsActive();
     int GetId();
 

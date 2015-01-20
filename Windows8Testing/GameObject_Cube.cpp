@@ -1,6 +1,11 @@
 #include "GameObject_Cube.h"
 
-GO_Cube::GO_Cube()
+GO_Cube::GO_Cube() :
+m_Pos(0, 0, 0),
+m_Scale(1, 1, 1),
+m_Rotation(0, 0, 0),
+m_id(0),
+m_isActive(true)
 {
 
 }
@@ -10,8 +15,13 @@ GO_Cube::~GO_Cube()
     
 }
 
-GO_Cube::GO_Cube(float x, float y, float z, bool isActive) :
-m_pos(x, y, z),
+GO_Cube::GO_Cube(float posx, float posy, float posz,
+    float scalex, float scaley, float scalez,
+    float rotx, float roty, float rotz,
+    bool isActive) :
+m_Pos(posx, posy, posz),
+m_Scale(scalex, scaley, scalez),
+m_Rotation(rotx, roty, rotz),
 m_id(0),
 m_isActive(isActive)
 {
@@ -77,29 +87,19 @@ void GO_Cube::Draw(float dt)
     //m_pD3dRender->Render(dt);
 }
 
-//bool GO_Cube::InitRenderer(Render::D3DRender *pRender)
-//{
-//    if (!pRender)
-//        return false;
-//    m_pD3dRender = pRender;
-//    if (m_pD3dRender)
-//        return true;
-//    else
-//        return false;
-//}
-
-void GO_Cube::SetPosition(Position *pPos)
+// SET METHODS //
+void GO_Cube::SetPosition(Vector *pPos)
 {
-    m_pos.x = pPos->x;
-    m_pos.y = pPos->y;
-    m_pos.z = pPos->z;
+    m_Pos.x = pPos->x;
+    m_Pos.y = pPos->y;
+    m_Pos.z = pPos->z;
 }
 
 void GO_Cube::SetPosition(float x, float y, float z)
 {
-    m_pos.x = x;
-    m_pos.y = y;
-    m_pos.z = z;
+    m_Pos.x = x;
+    m_Pos.y = y;
+    m_Pos.z = z;
 }
 
 void GO_Cube::SetIsActive(bool isActive)
@@ -112,23 +112,37 @@ void GO_Cube::SetId(int id)
     m_id = id;
 }
 
-GO_Cube::Position* GO_Cube::GetPosition()
+void GO_Cube::SetScale(float x, float y, float z)
 {
-    return &m_pos;
+    m_Scale.x = x;
+    m_Scale.y = y;
+    m_Scale.z = z;
+}
+
+void GO_Cube::SetRotation(float roll, float pitch, float yaw)
+{
+    m_Rotation.x = roll;
+    m_Rotation.y = pitch;
+    m_Rotation.z = yaw;
+}
+// GET METHODS //
+GO_Cube::Vector* GO_Cube::GetPosition()
+{
+    return &m_Pos;
 }
 float GO_Cube::GetPosX()
 {
-    return m_pos.x;
+    return m_Pos.x;
 }
 
 float GO_Cube::GetPosY()
 {
-    return m_pos.y;
+    return m_Pos.y;
 }
 
 float GO_Cube::GetPosZ()
 {
-    return m_pos.z;
+    return m_Pos.z;
 }
 
 bool GO_Cube::IsActive()
@@ -141,6 +155,35 @@ int GO_Cube::GetId()
     return m_id;
 }
 
+float GO_Cube::GetRotX()
+{
+    return m_Rotation.x;
+}
+
+float GO_Cube::GetRotY()
+{
+    return m_Rotation.y;
+}
+
+float GO_Cube::GetRotZ()
+{
+    return m_Rotation.z;
+}
+
+float GO_Cube::GetScaleX()
+{
+    return m_Scale.x;
+}
+
+float GO_Cube::GetScaleY()
+{
+    return m_Scale.y;
+}
+
+float GO_Cube::GetScaleZ()
+{
+    return m_Scale.z;
+}
 // Obtain information on the arrays of our class
 unsigned int GO_Cube::GetSizeOfIndices()
 {
@@ -154,12 +197,12 @@ unsigned int GO_Cube::GetSizeOfVertices()
 
 unsigned int GO_Cube::GetSizeOfVertexArray()
 {
-    return sizeof(m_Vertices) / sizeof(m_Vertices[0]);
+    return sizeof(m_Vertices);
 }
 
 unsigned int GO_Cube::GetSizeOfIndexArray()
 {
-    return sizeof(m_indices) / sizeof(m_indices[0]);
+    return sizeof(m_indices);
 }
 
 void** GO_Cube::GetPointerToVerticesArray()

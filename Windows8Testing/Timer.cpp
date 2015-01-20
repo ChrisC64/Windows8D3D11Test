@@ -1,7 +1,7 @@
 #include "Timer.h"
 
 
-Timer::Timer() : m_SecsPerCount(0),
+Timer::Timer() : m_CountsPerSec(0),
 m_DeltaTime(0),
 m_BaseTime(0),
 m_CurrTime(0),
@@ -9,12 +9,14 @@ m_PauseTime(0),
 m_PrevTime(0),
 m_StopTime(0),
 m_Stopped(false),
-m_seconds(1000.0f)
+m_seconds(1000.0f),
+m_ElapsedTime(0),
+m_TotalTime(0)
 {
     // Begin timer at creation
     __int64 cntsPerSec;
     QueryPerformanceFrequency((LARGE_INTEGER*)&cntsPerSec);
-    m_SecsPerCount = 1.0 / (double)cntsPerSec;
+    m_CountsPerSec = 1.0 / (double)cntsPerSec;
 }
 
 
@@ -37,8 +39,8 @@ void Timer::Tick()
     m_CurrTime = currTime;
 
     // Find the Delta tie
-    m_DeltaTime = (m_CurrTime - m_PrevTime) * m_SecsPerCount;
-
+    //m_DeltaTime = (m_CurrTime - m_PrevTime) * m_CountsPerSec;
+    m_TotalTime += m_CurrTime - m_PrevTime;
     // Prepare for next time frame
     m_PrevTime = m_CurrTime;
 
@@ -58,7 +60,7 @@ float Timer::DeltaTime()const
     (__int64)m_CurrTime = currTime;
 
     // Find the Delta tie
-    (double)m_DeltaTime = (m_CurrTime - m_PrevTime) * m_SecsPerCount;
+    (double)m_DeltaTime = (m_CurrTime - m_PrevTime) * m_CountsPerSec;
 
     // Prepare for next time frame
     (__int64)m_PrevTime = m_CurrTime;
@@ -122,10 +124,15 @@ float Timer::TotalTime()const
     // Check if we are currently stopped
     if (m_Stopped)
     {
-        return(float)(((m_StopTime - m_PauseTime) - m_BaseTime) * m_SecsPerCount);
+        return(float)(((m_StopTime - m_PauseTime) - m_BaseTime) * m_CountsPerSec);
     }
     else
     {
-        return(float)(((m_CurrTime - m_PauseTime) - m_BaseTime) * m_SecsPerCount);
+        return(float)(((m_CurrTime - m_PauseTime) - m_BaseTime) * m_CountsPerSec);
     }
+}
+
+float Timer::TimePassedSinceStart()const
+{
+    return (float)m_TotalTime * m_CountsPerSec;
 }
