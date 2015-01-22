@@ -110,49 +110,45 @@ void D3DRender::Render(float dt, std::vector<Object::GameObject*> *pObjects)
     a list of objects we will be rendering in view*/
     for (auto i = 0; i < pObjects->size(); i++)
     {
-        m_ScaleMat = DirectX::XMMatrixScaling(
-            pObjects->at(i)->GetScaleX(), 
-            pObjects->at(i)->GetScaleY(),
-            pObjects->at(i)->GetScaleZ());
-        m_TranslationMat = DirectX::XMMatrixTranslation(
-            pObjects->at(i)->GetPosX(),
-            pObjects->at(i)->GetPosY(), 
-            pObjects->at(i)->GetPosZ());
-        m_RotationMat = DirectX::XMMatrixRotationRollPitchYaw(
-            pObjects->at(i)->GetRotX() * trans,
-            pObjects->at(i)->GetRotY() * trans,
-            pObjects->at(i)->GetRotZ() * trans);
+        if (pObjects->at(i)->IsActive())
+        {
 
-        m_World = DirectX::XMMatrixMultiply(m_ScaleMat, m_RotationMat);
-        m_World = DirectX::XMMatrixMultiply(m_World, m_TranslationMat);
+            m_ScaleMat = DirectX::XMMatrixScaling(
+                pObjects->at(i)->GetScaleX(), 
+                pObjects->at(i)->GetScaleY(),
+                pObjects->at(i)->GetScaleZ());
+            m_TranslationMat = DirectX::XMMatrixTranslation(
+                pObjects->at(i)->GetPosX(),
+                pObjects->at(i)->GetPosY(), 
+                pObjects->at(i)->GetPosZ());
+            m_RotationMat = DirectX::XMMatrixRotationRollPitchYaw(
+                pObjects->at(i)->GetRotX() * trans,
+                pObjects->at(i)->GetRotY() * trans,
+                pObjects->at(i)->GetRotZ() * trans);
 
+            m_World = DirectX::XMMatrixMultiply(m_ScaleMat, m_RotationMat);
+            m_World = DirectX::XMMatrixMultiply(m_World, m_TranslationMat);
 
-        //m_ScaleMat = DirectX::XMMatrixScaling(1.0f, 1.0f, 1.0f);
-        //m_TranslationMat = DirectX::XMMatrixTranslation(mDynCube.GetPositionX(), mDynCube.GetPositionY(), mDynCube.GetPositionZ());
-        //m_RotationMat = DirectX::XMMatrixRotationRollPitchYaw(trans, trans * 0.5, trans);
+            // Transpose our Matrices
+            ConstantBuffer cb;
 
-        //m_World = DirectX::XMMatrixMultiply(m_ScaleMat, m_RotationMat);
-        //m_World = DirectX::XMMatrixMultiply(m_World, m_TranslationMat);
-        // END CAMERA CLASS REF // 
-        // Transpose our Matrices
-        ConstantBuffer cb;
+            cb.world = DirectX::XMMatrixTranspose(m_World);
+            cb.view = DirectX::XMMatrixTranspose(m_View);
+            cb.proj = DirectX::XMMatrixTranspose(m_Projection);
+            m_pDeviceContext->UpdateSubresource(m_pConstantBuffer, 0, nullptr, &cb, 0, 0);
 
-        cb.world = DirectX::XMMatrixTranspose(m_World);
-        cb.view = DirectX::XMMatrixTranspose(m_View);
-        cb.proj = DirectX::XMMatrixTranspose(m_Projection);
-        m_pDeviceContext->UpdateSubresource(m_pConstantBuffer, 0, nullptr, &cb, 0, 0);
+            // Clear depth stencil view
+            m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
-        // Clear depth stencil view
-        m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+            // Set Vertex Shader
+            m_pDeviceContext->VSSetShader(m_pVertexShader, nullptr, 0);
+            // Set Constant buffer
+            m_pDeviceContext->VSSetConstantBuffers(0, 1, &m_pConstantBuffer);
+            // Set Pixel Shader
+            m_pDeviceContext->PSSetShader(m_pPixelShader, nullptr, 0);
 
-        // Set Vertex Shader
-        m_pDeviceContext->VSSetShader(m_pVertexShader, nullptr, 0);
-        // Set Constant buffer
-        m_pDeviceContext->VSSetConstantBuffers(0, 1, &m_pConstantBuffer);
-        // Set Pixel Shader
-        m_pDeviceContext->PSSetShader(m_pPixelShader, nullptr, 0);
-
-        m_pDeviceContext->DrawIndexed(pObjects->at(i)->GetSizeOfIndexArray(), 0, 0);
+            m_pDeviceContext->DrawIndexed(pObjects->at(i)->GetSizeOfIndexArray(), 0, 0);
+        }
     }
 
     char strB[256];

@@ -7,7 +7,7 @@ m_Rotation(0, 0, 0),
 m_id(0),
 m_isActive(true)
 {
-
+    Init();
 }
 
 GO_Cube::~GO_Cube()
@@ -25,6 +25,7 @@ m_Rotation(rotx, roty, rotz),
 m_id(0),
 m_isActive(isActive)
 {
+    Init();
 }
 
 void GO_Cube::Init()
@@ -88,7 +89,7 @@ void GO_Cube::Draw(float dt)
 }
 
 // SET METHODS //
-void GO_Cube::SetPosition(Vector *pPos)
+void GO_Cube::SetPosition(Vector3 *pPos)
 {
     m_Pos.x = pPos->x;
     m_Pos.y = pPos->y;
@@ -126,7 +127,7 @@ void GO_Cube::SetRotation(float roll, float pitch, float yaw)
     m_Rotation.z = yaw;
 }
 // GET METHODS //
-GO_Cube::Vector* GO_Cube::GetPosition()
+GO_Cube::Vector3* GO_Cube::GetPosition()
 {
     return &m_Pos;
 }

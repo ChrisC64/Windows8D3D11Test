@@ -123,28 +123,38 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     GO_Cube cubeOne;
     GO_Cube cubeTwo(
         3, 0, 0,
-        1, 1, 1,
+        1.5, 1.5, 1.5,
         0, 1, 0,
-        true);
+        false);
     GO_Cube cubeThree(
         -3, 0, 0, 
-        1, 1, 1,
+        0.5, 0.5, 0.5,
         1, 0, 0,
         true);
     GO_Cube cubeFour(
         0, 3, 0, 
-        1, 1, 1,
+        1.5, 0.5, 1,
         0, 0, 1,
         true);
+    GO_Cube cubeFive(
+        -3, 3, 0,
+        1, 1, 1,
+        1, 1, 0,
+        true);
+    GO_Cube cubeSix(
+        3, 3, 0,
+        1, 1, 1,
+        0, 1, 1,
+        true
+        );
     std::vector<Object::GameObject*> myCubes;
-    cubeOne.Init();
-    cubeTwo.Init();
-    cubeThree.Init();
-    cubeFour.Init();
+
     myCubes.push_back(&cubeOne);
     myCubes.push_back(&cubeTwo);
     myCubes.push_back(&cubeThree);
     myCubes.push_back(&cubeFour);
+    //myCubes.push_back(&cubeFive);
+    //myCubes.push_back(&cubeSix);
     // Add the objects to the buffer of our render
     for (auto i = 0; i < myCubes.size(); i++)
     {

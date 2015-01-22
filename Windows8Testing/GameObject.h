@@ -5,29 +5,24 @@ namespace Object
     class GameObject
     {
     protected:
-        struct Vector
+        struct Vector3
         {
             float x;
             float y;
             float z;
-            Vector()
+            Vector3()
             {
                 x = 0.0f;
                 y = 0.0f;
                 z = 0.0f;
             }
-            Vector(float px, float py, float pz)
+            Vector3(float px, float py, float pz)
             {
                 x = px;
                 y = py;
                 z = pz;
             }
         };
-        //Point::Vertex mVertex;
-        unsigned int mId;
-        bool    mIsActive;
-
-        //D3DRender *m_pD3dRender;
         
     public:
         GameObject();

@@ -7,34 +7,34 @@
 class GO_Cube : public Object::GameObject
 {
 private:
-    struct Vector
+    struct Vector3
     {
         float x;
         float y;
         float z;
-        Vector()
+        Vector3()
         {
             x = 0.0f;
             y = 0.0f;
             z = 0.0f;
         }
-        Vector(float px, float py, float pz)
+        Vector3(float px, float py, float pz)
         {
             x = px;
             y = py;
             z = pz;
         }
-        Vector(const Vector& pos)
+        Vector3(const Vector3& pos)
         {
             (*this) = pos;
         }
-        Vector(Vector *p)
+        Vector3(Vector3 *p)
         {
             this->x = p->x;
             this->y = p->y;
             this->z = p->z;
         }
-        Vector& operator=(const Vector& p)
+        Vector3& operator=(const Vector3& p)
         {
             this->x = p.x;
             this->y = p.y;
@@ -44,15 +44,19 @@ private:
         }
     };
 
-protected:
-    //Position m_Position;
     Point::Vertex m_Vertices[8];
-    Vector m_Pos;
-    Vector m_Scale;
-    Vector m_Rotation;
     unsigned int m_indices[36];
-    unsigned int m_id;
+    Vector3 m_Pos;
+    Vector3 m_Scale;
+    Vector3 m_Rotation;
     bool    m_isActive;
+    unsigned int m_id;
+
+    DirectX::XMMATRIX m_mTransMat;
+    DirectX::XMMATRIX m_mScaleMat;
+    DirectX::XMMATRIX m_mRotMat;
+
+protected:
     // Render object
 public:
 
@@ -66,7 +70,6 @@ public:
         float rotx, float roty, float rotz,
         bool isActive);
 
-    //GO_Cube(Point::Vertex *pVertex, D3DRender* pRender);
     // Initialize Objects referenced by this class
     //bool InitRenderer(Render::D3DRender *pRender);
     
@@ -75,7 +78,7 @@ public:
     void Init();
     
     // Set Methods //
-    void SetPosition(Vector* pPosition);
+    void SetPosition(Vector3* pPosition);
     void SetPosition(float x, float y, float z);
     void SetIsActive(bool isActive);
     void SetId(int id);
@@ -83,7 +86,7 @@ public:
     void SetRotation(float rill, float pitch, float yaw);
 
     // Get Methods //
-    Vector* GetPosition();
+    Vector3* GetPosition();
     float GetPosX();
     float GetPosY();
     float GetPosZ();
@@ -106,4 +109,13 @@ public:
     unsigned int GetSizeOfIndexArray();
     void** GetPointerToVerticesArray(); // Should be const()?
     void** GetPointerToIndexArray(); // should be const? 
+
+    //DirectX::XMMATRIX& GetScaleMat();
+    //DirectX::XMMATRIX& GetTransMat();
+    //DirectX::XMMATRIX& GetRotMat();
+    //DirectX::XMMATRIX& GetWorldMat();
+    //void SetScaleMat(float x, float y, float z);
+    //void SetTransMat(float x, float y, float z);
+    //void SetRotMat(float );
+
 };
